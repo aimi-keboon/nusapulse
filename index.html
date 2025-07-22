@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NusaPulse - Your Personalized Health Journey</title>
+    <meta name="description" content="Get your complete health assessment with body scan and online consultation, then unlock your personalized bootcamp with custom meal and workout plans.">
+    <meta name="keywords" content="body scan, health assessment, personalized fitness, meal plan, workout plan, online consultation, health bootcamp">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nusapulse.com/">
+    <meta property="og:title" content="NusaPulse - Your Personalized Health Journey">
+    <meta property="og:description" content="Get your complete health assessment with body scan and online consultation, then unlock your personalized bootcamp.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+    :root {
+        --primary-color: #00c9a7;
+        --primary-dark: #00a085;
+        --primary-light: #e0f9f4;
+        --secondary-color: #ff6b6b;
+        --accent-color: #4ecdc4;
+        --warning-color: #ffa726;
+
+        --white: #ffffff;
+        --gray-50: #f8fafc;
+        --gray-100: #f1f5f9;
+        --gray-200: #e2e8f0;
+        --gray-300: #cbd5e1;
+        --gray-400: #94a3b8;
+        --gray-500: #64748b;
+        --gray-600: #475569;
+        --gray-700: #334155;
+        --gray-800: #1e293b;
+        --gray-900: #0f172a;
+
+        --font-primary: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+        --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        --transition-fast: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+        --radius-sm: 0.25rem;
+        --radius-md: 0.375rem;
+        --radius-lg: 0.5rem;
+        --radius-xl: 0.75rem;
+        --radius-2xl: 1rem;
+        --radius-full: 9999px;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: var(--font-body);
+        line-height: 1.6;
+        color: var(--gray-700);
+        overflow-x: hidden;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    .section {
+        padding: 4rem 0;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-primary);
+        font-weight: 700;
+        line-height: 1.2;
+        color: var(--gray-900);
+    }
+
+    .hero-title {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+        font-size: clamp(2rem, 4vw, 2.5rem);
+        margin-bottom: 1rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+        color: var(--gray-600);
+        max-width: 600px;
+        margin: 0 auto 2rem;
+    }
+
+    /* Buttons */
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 1rem 2rem;
+        border: 2px solid transparent;
+        border-radius: var(--radius-full);
+        font-weight: 600;
+        font-size: 1rem;
+        text-decoration: none;
+        cursor: pointer;
+        transition: var(--transition-fast);
+        white-space: nowrap;
+        font-family: var(--font-primary);
+    }
+
+    .btn--primary {
+        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        color: var(--white);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .btn--primary:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-xl);
+        filter: brightness(110%);
+    }
+
+    .btn--secondary {
+        background: var(--secondary-color);
+        color: var(--white);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .btn--secondary:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-xl);
+        filter: brightness(110%);
+    }
+
+    .btn--outline {
+        border: 2px solid var(--primary-color);
+        color: var(--primary-color);
+        background: transparent;
+    }
+
+    .btn--outline:hover {
+        background: var(--primary-color);
+        color: var(--white);
+    }
+
+    .btn--large {
+        padding: 1.25rem 2.5rem;
+        font-size: 1.1rem;
+    }
+
+    /* Header */
+    .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--gray-200);
+        z-index: 1000;
+        transition: var(--transition-fast);
+    }
+
+    .header__container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .logo {
+        font-family: var(--font-primary);
+        font-size: 1.75rem;
+        font-weight: 800;
+        color: var(--primary-color);
+        text-decoration: none;
+    }
+
+    .nav {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+    }
+
+    .nav__link {
+        color: var(--gray-700);
+        text-decoration: none;
+        font-weight: 500;
+        transition: var(--transition-fast);
+    }
+
+    .nav__link:hover {
+        color: var(--primary-color);
+    }
+
+    /* Hero Section */
+    .hero {
+        padding: 8rem 0 6rem;
+        background: linear-gradient(135deg, var(--primary-light) 0%, var(--white) 100%);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 100%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(0, 201, 167, 0.1) 0%, transparent 70%);
+        animation: float 20s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-20px) rotate(5deg); }
+    }
+
+    .hero__content {
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Process Steps */
+    .process {
+        background: var(--white);
+    }
+
+    .process-steps {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        gap: 2rem;
+        align-items: center;
+        margin-top: 3rem;
+    }
+
+    .step-card {
+        background: var(--white);
+        padding: 2.5rem;
+        border-radius: var(--radius-2xl);
+        box-shadow: var(--shadow-xl);
+        border: 1px solid var(--gray-200);
+        text-align: center;
+        transition: var(--transition-normal);
+        position: relative;
+    }
+
+    .step-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    }
+
+    .step-card--primary {
+        border: 2px solid var(--primary-color);
+        background: linear-gradient(135deg, var(--primary-light) 0%, var(--white) 100%);
+    }
+
+    .step-card--secondary {
+        border: 2px solid var(--secondary-color);
+        background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, var(--white) 100%);
+    }
+
+    .step-number {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        color: var(--white);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 800;
+        margin: 0 auto 1.5rem;
+    }
+
+    .step-number--secondary {
+        background: linear-gradient(135deg, var(--secondary-color), var(--warning-color));
+    }
+
+    .step-title {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: var(--gray-900);
+    }
+
+    .step-description {
+        color: var(--gray-600);
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+
+    .step-features {
+        list-style: none;
+        margin-bottom: 2rem;
+    }
+
+    .step-features li {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+        color: var(--gray-700);
+    }
+
+    .step-features li::before {
+        content: '✓';
+        background: var(--primary-color);
+        color: var(--white);
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        font-weight: bold;
+        flex-shrink: 0;
+    }
+
+    .step-price {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+    }
+
+    .step-price--secondary {
+        color: var(--secondary-color);
+    }
+
+    .process-arrow {
+        font-size: 2rem;
+        color: var(--primary-color);
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
+
+    /* Features Section */
+    .features {
+        background: var(--gray-50);
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+
+    .feature-card {
+        background: var(--white);
+        padding: 2rem;
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-md);
+        text-align: center;
+        transition: var(--transition-normal);
+    }
+
+    .feature-card:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .feature-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        color: var(--white);
+        font-size: 2rem;
+    }
+
+    .feature-title {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+    }
+
+    .feature-description {
+        color: var(--gray-600);
+        line-height: 1.6;
+    }
+
+    /* CTA Section */
+    .cta {
+        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        color: var(--white);
+        text-align: center;
+    }
+
+    .cta h2 {
+        color: var(--white);
+        margin-bottom: 1rem;
+    }
+
+    .cta p {
+        font-size: 1.125rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+    }
+
+    .btn--white {
+        background: var(--white);
+        color: var(--primary-color);
+    }
+
+    .btn--white:hover {
+        background: var(--gray-100);
+        transform: translateY(-2px);
+    }
+
+    /* Footer */
+    .footer {
+        background: var(--gray-900);
+        color: var(--gray-300);
+        text-align: center;
+        padding: 2rem 0;
+    }
+
+    /* Animations */
+    .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .animate-on-scroll.animate {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 968px) {
+        .process-steps {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .process-arrow {
+            transform: rotate(90deg);
+            margin: 1rem 0;
+        }
+
+        .nav {
+            display: none;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .hero {
+            padding: 6rem 0 4rem;
+        }
+
+        .section {
+            padding: 3rem 0;
+        }
+
+        .step-card {
+            padding: 2rem;
+        }
+
+        .btn {
+            padding: 0.875rem 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .btn--large {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .container {
+            padding: 0 0.75rem;
+        }
+
+        .hero {
+            padding: 5rem 0 3rem;
+        }
+
+        .step-card {
+            padding: 1.5rem;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+        }
+    }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header__container">
+            <a href="#" class="logo">NusaPulse</a>
+            <nav class="nav">
+                <a href="#process" class="nav__link">How It Works</a>
+                <a href="#features" class="nav__link">Features</a>
+                <a href="#cta" class="nav__link">Get Started</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero__content animate-on-scroll">
+                <h1 class="hero-title">Your Personalized Health Journey Starts Here</h1>
+                <p class="hero-subtitle">
+                    Get a complete health assessment with advanced body scanning and expert consultation, then unlock your customized bootcamp for maximum results.
+                </p>
+                <a href="#process" class="btn btn--primary btn--large">
+                    <i class="fas fa-arrow-down"></i>
+                    Discover Your Journey
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process section" id="process">
+        <div class="container">
+            <div class="text-center animate-on-scroll">
+                <h2 class="section-title">How NusaPulse Works</h2>
+                <p style="font-size: 1.125rem; color: var(--gray-600); max-width: 600px; margin: 0 auto;">
+                    A simple two-step process designed to give you the most personalized health and fitness experience possible.
+                </p>
+            </div>
+
+            <div class="process-steps animate-on-scroll">
+                <!-- Step 1 -->
+                <div class="step-card step-card--primary">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Health Assessment</h3>
+                    <p class="step-description">
+                        Complete body scan and comprehensive online consultation with our certified doctor and fitness trainer.
+                    </p>
+                    
+                    <ul class="step-features">
+                        <li>Advanced body composition scan</li>
+                        <li>One-on-one consultation with doctor</li>
+                        <li>Fitness assessment with trainer</li>
+                        <li>Health condition evaluation</li>
+                        <li>Goal setting and recommendations</li>
+                    </ul>
+                    
+                    <div class="step-price">$149</div>
+                    <a href="#cta" class="btn btn--primary">
+                        <i class="fas fa-calendar-check"></i>
+                        Book Assessment
+                    </a>
+                </div>
+
+                <!-- Arrow -->
+                <div class="process-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step-card step-card--secondary">
+                    <div class="step-number step-number--secondary">2</div>
+                    <h3 class="step-title">Personalized Bootcamp</h3>
+                    <p class="step-description">
+                        Unlock your customized meal and workout plans based on your unique scan results and health condition for maximum results.
+                    </p>
+                    
+                    <ul class="step-features">
+                        <li>Custom meal plan based on your body</li>
+                        <li>Personalized workout routines</li>
+                        <li>Health-condition specific programs</li>
+                        <li>Progress tracking and adjustments</li>
+                        <li>Ongoing support and guidance</li>
+                        <li>Monthly plan updates</li>
+                    </ul>
+                    
+                    <div class="step-price step-price--secondary">$299</div>
+                    <p style="font-size: 0.9rem; color: var(--gray-600); margin-bottom: 1rem;">
+                        *Optional - Proceed after Step 1
+                    </p>
+                    <a href="#cta" class="btn btn--secondary">
+                        <i class="fas fa-rocket"></i>
+                        Upgrade to Bootcamp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features section" id="features">
+        <div class="container">
+            <div class="text-center animate-on-scroll">
+                <h2 class="section-title">Why Choose NusaPulse?</h2>
+                <p style="font-size: 1.125rem; color: var(--gray-600); max-width: 700px; margin: 0 auto;">
+                    We combine cutting-edge technology with expert knowledge to deliver truly personalized health solutions.
+                </p>
+            </div>
+
+            <div class="features-grid animate-on-scroll">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-microscope"></i>
+                    </div>
+                    <h3 class="feature-title">Advanced Body Scanning</h3>
+                    <p class="feature-description">
+                        State-of-the-art technology provides detailed insights into your body composition, metabolism, and health markers.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3 class="feature-title">Expert Consultation</h3>
+                    <p class="feature-description">
+                        Work directly with certified doctors and fitness trainers who understand your unique health profile and goals.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3 class="feature-title">100% Personalized</h3>
+                    <p class="feature-description">
+                        Every meal plan and workout routine is specifically designed for your body type, health condition, and fitness goals.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">Maximum Results</h3>
+                    <p class="feature-description">
+                        Science-backed approach ensures you get the most effective plan for your body, leading to faster and lasting results.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <h3 class="feature-title">Online Convenience</h3>
+                    <p class="feature-description">
+                        Complete consultations from anywhere with our secure online platform, making health assessment accessible.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Ongoing Support</h3>
+                    <p class="feature-description">
+                        Regular plan updates and continuous monitoring ensure your program evolves with your progress and changing needs.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta section" id="cta">
+        <div class="container">
+            <div class="animate-on-scroll">
+                <h2 class="section-title">Ready to Transform Your Health?</h2>
+                <p>
+                    Join thousands who have discovered their optimal health path with NusaPulse's personalized approach.
+                </p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="#" class="btn btn--white btn--large">
+                        <i class="fas fa-play"></i>
+                        Start with Assessment
+                    </a>
+                    <a href="#" class="btn btn--outline btn--large" style="border-color: white; color: white;">
+                        <i class="fas fa-info-circle"></i>
+                        Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 NusaPulse. All rights reserved. | Your journey to optimal health starts here.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animate on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        console.log('NusaPulse landing page loaded successfully!');
+    </script>
+</body>
+</html>
