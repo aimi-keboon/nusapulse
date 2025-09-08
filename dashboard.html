@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HealthScreen - Metabolic Age Dashboard</title>
+    <title>NusaPulse - Metabolic Age Dashboard</title>
     <style>
         * {
             margin: 0;
@@ -56,6 +56,76 @@
         .nav-menu a:hover,
         .nav-menu a.active {
             color: #4facfe;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #666;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 15px 0;
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+            border-bottom: 1px solid #f1f5f9;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu a:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-menu a:hover,
+        .mobile-menu a.active {
+            color: #4facfe;
+        }
+
+        .mobile-user-info {
+            display: none;
+            padding: 15px 0;
+            border-bottom: 1px solid #f1f5f9;
+            margin-bottom: 10px;
+        }
+
+        .mobile-logout {
+            display: none;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            width: 100%;
+            margin-top: 15px;
+            transition: background 0.3s ease;
+        }
+
+        .mobile-logout:hover {
+            background: #ff5252;
         }
 
         .user-menu {
@@ -437,7 +507,237 @@
             font-weight: 600;
         }
 
+        .treatment-recommendations {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .treatment-intro {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4facfe;
+        }
+
+        .treatment-intro p {
+            color: #0c4a6e;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .treatment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .treatment-card {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .treatment-card:hover {
+            border-color: #4facfe;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.15);
+        }
+
+        .treatment-card.priority {
+            border-color: #ef4444;
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+        }
+
+        .treatment-card.priority:hover {
+            border-color: #dc2626;
+            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.15);
+        }
+
+        .treatment-card.featured {
+            border-color: #22c55e;
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+        }
+
+        .treatment-card.featured:hover {
+            border-color: #16a34a;
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.15);
+        }
+
+        .treatment-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .treatment-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .treatment-badge {
+            background: #ef4444;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .treatment-badge.featured {
+            background: #22c55e;
+        }
+
+        .treatment-card h4 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 12px;
+        }
+
+        .treatment-card p {
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .treatment-benefits {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .benefit-tag {
+            background: #4facfe;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 15px;
+        }
+
+        .treatment-card.priority .benefit-tag {
+            background: #ef4444;
+        }
+
+        .treatment-card.featured .benefit-tag {
+            background: #22c55e;
+        }
+
+        .treatment-duration {
+            color: #64748b;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .treatment-btn {
+            width: 100%;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #4facfe;
+            color: white;
+        }
+
+        .treatment-btn:hover {
+            background: #3b95fe;
+            transform: translateY(-2px);
+        }
+
+        .treatment-btn.primary {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        }
+
+        .treatment-btn.primary:hover {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        }
+
+        .treatment-btn.featured {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+        }
+
+        .treatment-btn.featured:hover {
+            background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+        }
+
+        .treatment-cta {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-content h4 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .cta-content p {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .cta-btn {
+            background: white;
+            color: #4facfe;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+        }
+
         @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .user-menu {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .mobile-user-info {
+                display: block;
+            }
+            
+            .mobile-logout {
+                display: block;
+            }
+            
             .dashboard-grid {
                 grid-template-columns: 1fr;
             }
@@ -446,12 +746,25 @@
                 grid-template-columns: 1fr;
             }
             
-            .nav-menu {
-                display: none;
-            }
-            
             .factors-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .treatment-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .treatment-card {
+                padding: 20px;
+            }
+
+            .treatment-benefits {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .benefit-tag {
+                width: fit-content;
             }
 
             .horizontal-meter {
@@ -479,17 +792,38 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">🏥 HealthScreen</div>
+            <div class="logo">🏥 NusaPulse</div>
+            
+            <!-- Desktop Menu -->
             <div class="nav-menu">
                 <a href="dashboard.html" class="active">Dashboard</a>
                 <a href="upload.html">Upload Files</a>
                 <a href="history.html">Health History</a>
                 <a href="profile.html">Profile</a>
             </div>
+            
+            <!-- Desktop User Menu -->
             <div class="user-menu">
                 <span class="user-info" id="userName">Loading...</span>
                 <button class="logout-btn" onclick="logout()">Logout</button>
             </div>
+            
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span id="menuIcon">☰</span>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-user-info">
+                <strong id="mobileUserName">Loading...</strong>
+            </div>
+            <a href="dashboard.html" class="active">Dashboard</a>
+            <a href="upload.html">Upload Files</a>
+            <a href="history.html">Health History</a>
+            <a href="profile.html">Profile</a>
+            <button class="mobile-logout" onclick="logout()">Logout</button>
         </div>
     </nav>
 
@@ -598,6 +932,112 @@
                 <!-- Factors will be loaded dynamically -->
             </div>
         </div>
+
+        <!-- Treatment Recommendations -->
+        <div class="treatment-recommendations">
+            <h3 style="margin-bottom: 25px;">🎯 Your Personalized Health Improvement Plan</h3>
+            <div class="treatment-intro">
+                <p>Based on your metabolic age assessment, we've curated specific programs to help you achieve optimal health. Our evidence-based approach combines nutrition, exercise, and lifestyle optimization.</p>
+            </div>
+            
+            <div class="treatment-grid">
+                <div class="treatment-card priority">
+                    <div class="treatment-header">
+                        <div class="treatment-icon">🏋️</div>
+                        <div class="treatment-badge">Most Important</div>
+                    </div>
+                    <h4>Metabolic Reset Bootcamp</h4>
+                    <p>Intensive 12-week program targeting insulin resistance and muscle building. Includes supervised workouts, meal planning, and weekly progress tracking.</p>
+                    <div class="treatment-benefits">
+                        <span class="benefit-tag">-8 years metabolic age</span>
+                        <span class="benefit-tag">Muscle gain</span>
+                        <span class="benefit-tag">Fat loss</span>
+                    </div>
+                    <div class="treatment-duration">Duration: 12 weeks</div>
+                    <button class="treatment-btn primary" onclick="learnMore('bootcamp')">Learn More</button>
+                </div>
+
+                <div class="treatment-card">
+                    <div class="treatment-header">
+                        <div class="treatment-icon">🥗</div>
+                    </div>
+                    <h4>Personalized Nutrition Plan</h4>
+                    <p>Custom meal plans based on your genetic profile and metabolic needs. Includes anti-inflammatory foods and portion optimization.</p>
+                    <div class="treatment-benefits">
+                        <span class="benefit-tag">-4 years metabolic age</span>
+                        <span class="benefit-tag">Reduced inflammation</span>
+                    </div>
+                    <div class="treatment-duration">Duration: Ongoing</div>
+                    <button class="treatment-btn" onclick="learnMore('nutrition')">Learn More</button>
+                </div>
+
+                <div class="treatment-card">
+                    <div class="treatment-header">
+                        <div class="treatment-icon">👨‍⚕️</div>
+                    </div>
+                    <h4>Medical Consultation</h4>
+                    <p>One-on-one consultation with our metabolic health specialists to address specific health concerns and optimize treatment plans.</p>
+                    <div class="treatment-benefits">
+                        <span class="benefit-tag">Personalized care</span>
+                        <span class="benefit-tag">Expert guidance</span>
+                    </div>
+                    <div class="treatment-duration">Duration: 60 minutes</div>
+                    <button class="treatment-btn" onclick="learnMore('consultation')">Book Now</button>
+                </div>
+
+                <div class="treatment-card">
+                    <div class="treatment-header">
+                        <div class="treatment-icon">🧘</div>
+                    </div>
+                    <h4>Stress & Sleep Optimization</h4>
+                    <p>Comprehensive program addressing cortisol management, sleep quality improvement, and stress reduction techniques.</p>
+                    <div class="treatment-benefits">
+                        <span class="benefit-tag">-3 years metabolic age</span>
+                        <span class="benefit-tag">Better sleep</span>
+                    </div>
+                    <div class="treatment-duration">Duration: 8 weeks</div>
+                    <button class="treatment-btn" onclick="learnMore('wellness')">Learn More</button>
+                </div>
+
+                <div class="treatment-card">
+                    <div class="treatment-header">
+                        <div class="treatment-icon">🔬</div>
+                    </div>
+                    <h4>Advanced Testing Package</h4>
+                    <p>Comprehensive health screening including hormone panels, micronutrient analysis, and inflammatory markers for precise health optimization.</p>
+                    <div class="treatment-benefits">
+                        <span class="benefit-tag">Complete analysis</span>
+                        <span class="benefit-tag">Precise targeting</span>
+                    </div>
+                    <div class="treatment-duration">One-time assessment</div>
+                    <button class="treatment-btn" onclick="learnMore('testing')">Learn More</button>
+                </div>
+
+                <div class="treatment-card featured">
+                    <div class="treatment-header">
+                        <div class="treatment-icon">🏆</div>
+                        <div class="treatment-badge featured">Complete Package</div>
+                    </div>
+                    <h4>Total Health Transformation</h4>
+                    <p>Comprehensive 6-month program combining all our services: bootcamp, nutrition, consultations, and ongoing support for maximum results.</p>
+                    <div class="treatment-benefits">
+                        <span class="benefit-tag">-12 years metabolic age</span>
+                        <span class="benefit-tag">Full support</span>
+                        <span class="benefit-tag">Best value</span>
+                    </div>
+                    <div class="treatment-duration">Duration: 6 months</div>
+                    <button class="treatment-btn featured" onclick="learnMore('complete')">Get Started</button>
+                </div>
+            </div>
+
+            <div class="treatment-cta">
+                <div class="cta-content">
+                    <h4>Ready to Transform Your Health?</h4>
+                    <p>Join thousands who have successfully reduced their metabolic age with NusaPulse programs. Our expert team is ready to guide your journey to optimal health.</p>
+                    <button class="cta-btn" onclick="explorePrograms()">Explore All Programs</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -613,54 +1053,53 @@
         // Metabolic age improvement strategies
         const ageImprovements = {
             20: {
-    title: "🌟 Optimal Metabolic Health",
-    message: "Your metabolic age is exceptional! Focus on maintaining these excellent habits:",
-    metrics: [
-        { title: "Maintain Muscle Mass", desc: "Continue strength training 3-4x per week", impact: "medium" },
-        { title: "Optimal Nutrition", desc: "Keep nutrient-dense, anti-inflammatory diet", impact: "medium" },
-        { title: "Stress Management", desc: "Continue meditation and recovery practices", impact: "medium" }
-    ]
-},
-30: {
-    title: "✅ Good Metabolic Health",
-    message: "You're doing well! These optimizations will get you to optimal metabolic age:",
-    metrics: [
-        { title: "Increase Protein Intake", desc: "Aim for 1.6-2.2g per kg body weight daily", impact: "high" },
-        { title: "Resistance Training", desc: "Add 2-3 strength training sessions per week", impact: "high" },
-        { title: "Improve Sleep Quality", desc: "Optimize for 7-9 hours of deep sleep", impact: "medium" }
-    ]
-},
-40: {
-    title: "📈 Fair Metabolic Health - Improvement Needed",
-    message: "Your metabolic age needs attention. Focus on these key areas to reverse aging:",
-    metrics: [
-        { title: "Fix Insulin Resistance", desc: "Reduce refined carbs, increase fiber to 35g+ daily", impact: "critical" },
-        { title: "Build Muscle Mass", desc: "Start progressive resistance training program", impact: "critical" },
-        { title: "Reduce Inflammation", desc: "Eliminate processed foods, add omega-3s", impact: "high" },
-        { title: "Intermittent Fasting", desc: "Try 16:8 fasting to improve metabolic flexibility", impact: "high" }
-    ]
-},
-50: {
-    title: "⚠️ Poor Metabolic Health - Action Required",
-    message: "Multiple metabolic issues are aging you rapidly. These changes are critical:",
-    metrics: [
-        { title: "Address Metabolic Syndrome", desc: "Work with doctor on blood sugar, BP, cholesterol", impact: "critical" },
-        { title: "Lose Visceral Fat", desc: "Combine caloric deficit with strength training", impact: "critical" },
-        { title: "Drastically Reduce Sugar", desc: "Eliminate all added sugars and refined carbs", impact: "critical" },
-        { title: "Increase Daily Activity", desc: "Walk 10,000+ steps, add movement every hour", impact: "high" }
-    ]
-},
-60: {
-    title: "🚨 Critical Metabolic Health",
-    message: "Your metabolic age indicates severe health risks. Immediate intervention needed:",
-    metrics: [
-        { title: "Medical Intervention", desc: "Immediate doctor consultation for metabolic panel", impact: "critical" },
-        { title: "Comprehensive Diet Overhaul", desc: "Work with nutritionist on metabolic reset plan", impact: "critical" },
-        { title: "Supervised Exercise Program", desc: "Start with medical clearance and supervision", impact: "critical" },
-        { title: "Sleep Disorder Treatment", desc: "Address sleep apnea and poor sleep quality", impact: "critical" }
-    ]
-}
-
+                title: "🌟 Optimal Metabolic Health",
+                message: "Your metabolic age is exceptional! Focus on maintaining these excellent habits:",
+                metrics: [
+                    { title: "Maintain Muscle Mass", desc: "Continue strength training 3-4x per week", impact: "medium" },
+                    { title: "Optimal Nutrition", desc: "Keep nutrient-dense, anti-inflammatory diet", impact: "medium" },
+                    { title: "Stress Management", desc: "Continue meditation and recovery practices", impact: "medium" }
+                ]
+            },
+            30: {
+                title: "✅ Good Metabolic Health",
+                message: "You're doing well! These optimizations will get you to optimal metabolic age:",
+                metrics: [
+                    { title: "Increase Protein Intake", desc: "Aim for 1.6-2.2g per kg body weight daily", impact: "high" },
+                    { title: "Resistance Training", desc: "Add 2-3 strength training sessions per week", impact: "high" },
+                    { title: "Improve Sleep Quality", desc: "Optimize for 7-9 hours of deep sleep", impact: "medium" }
+                ]
+            },
+            40: {
+                title: "📈 Fair Metabolic Health - Improvement Needed",
+                message: "Your metabolic age needs attention. Focus on these key areas to reverse aging:",
+                metrics: [
+                    { title: "Fix Insulin Resistance", desc: "Reduce refined carbs, increase fiber to 35g+ daily", impact: "critical" },
+                    { title: "Build Muscle Mass", desc: "Start progressive resistance training program", impact: "critical" },
+                    { title: "Reduce Inflammation", desc: "Eliminate processed foods, add omega-3s", impact: "high" },
+                    { title: "Intermittent Fasting", desc: "Try 16:8 fasting to improve metabolic flexibility", impact: "high" }
+                ]
+            },
+            50: {
+                title: "⚠️ Poor Metabolic Health - Action Required",
+                message: "Multiple metabolic issues are aging you rapidly. These changes are critical:",
+                metrics: [
+                    { title: "Address Metabolic Syndrome", desc: "Work with doctor on blood sugar, BP, cholesterol", impact: "critical" },
+                    { title: "Lose Visceral Fat", desc: "Combine caloric deficit with strength training", impact: "critical" },
+                    { title: "Drastically Reduce Sugar", desc: "Eliminate all added sugars and refined carbs", impact: "critical" },
+                    { title: "Increase Daily Activity", desc: "Walk 10,000+ steps, add movement every hour", impact: "high" }
+                ]
+            },
+            60: {
+                title: "🚨 Critical Metabolic Health",
+                message: "Your metabolic age indicates severe health risks. Immediate intervention needed:",
+                metrics: [
+                    { title: "Medical Intervention", desc: "Immediate doctor consultation for metabolic panel", impact: "critical" },
+                    { title: "Comprehensive Diet Overhaul", desc: "Work with nutritionist on metabolic reset plan", impact: "critical" },
+                    { title: "Supervised Exercise Program", desc: "Start with medical clearance and supervision", impact: "critical" },
+                    { title: "Sleep Disorder Treatment", desc: "Address sleep apnea and poor sleep quality", impact: "critical" }
+                ]
+            }
         };
 
         // Sample user data
@@ -690,7 +1129,7 @@
         // Initialize dashboard
         document.addEventListener('DOMContentLoaded', function() {
             // Check authentication
-            const token = localStorage.getItem('healthscreen_token');
+            const token = localStorage.getItem('NusaPulse_token');
             if (!token) {
                 window.location.href = 'login.html';
                 return;
@@ -702,8 +1141,11 @@
         });
 
         function loadUserData() {
-            const user = JSON.parse(localStorage.getItem('healthscreen_user')) || userData.user;
-            document.getElementById('userName').textContent = `${user.firstName} ${user.lastName}`;
+            const user = JSON.parse(localStorage.getItem('NusaPulse_user')) || userData.user;
+            const fullName = `${user.firstName} ${user.lastName}`;
+            
+            document.getElementById('userName').textContent = fullName;
+            document.getElementById('mobileUserName').textContent = fullName;
             document.getElementById('welcomeName').textContent = user.firstName;
             
             // Set age values
@@ -714,29 +1156,54 @@
             updateAgeDifference();
         }
 
-       function updateAgeDifference() {
-    const difference = currentMetabolicAge - chronologicalAge;
-    const diffElement = document.getElementById('ageDifference');
-    const metabolicAgeElement = document.getElementById('metabolicAge');
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuIcon = document.getElementById('menuIcon');
+            
+            mobileMenu.classList.toggle('active');
+            
+            // Change hamburger to X when open
+            if (mobileMenu.classList.contains('active')) {
+                menuIcon.textContent = '✕';
+            } else {
+                menuIcon.textContent = '☰';
+            }
+        }
 
-    const absDiff = Math.abs(difference).toFixed(1);
-    const unit = (absDiff == 1.0 ? "year" : "years");
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            const navbar = document.querySelector('.navbar');
+            
+            if (!navbar.contains(event.target) && mobileMenu.classList.contains('active')) {
+                mobileMenu.classList.remove('active');
+                document.getElementById('menuIcon').textContent = '☰';
+            }
+        });
 
-    if (difference > 0) {
-        diffElement.textContent = `${absDiff} ${unit} older`;
-        diffElement.className = 'age-difference';
-        metabolicAgeElement.className = 'age-value metabolic-age';
-    } else if (difference < 0) {
-        diffElement.textContent = `${absDiff} ${unit} younger`;
-        diffElement.className = 'age-difference better';
-        metabolicAgeElement.className = 'age-value age-better';
-    } else {
-        diffElement.textContent = 'Same age';
-        diffElement.className = 'age-difference better';
-        metabolicAgeElement.className = 'age-value age-better';
-    }
-}
+        function updateAgeDifference() {
+            const difference = currentMetabolicAge - chronologicalAge;
+            const diffElement = document.getElementById('ageDifference');
+            const metabolicAgeElement = document.getElementById('metabolicAge');
 
+            const absDiff = Math.abs(difference).toFixed(1);
+            const unit = (absDiff == 1.0 ? "year" : "years");
+
+            if (difference > 0) {
+                diffElement.textContent = `${absDiff} ${unit} older`;
+                diffElement.className = 'age-difference';
+                metabolicAgeElement.className = 'age-value metabolic-age';
+            } else if (difference < 0) {
+                diffElement.textContent = `${absDiff} ${unit} younger`;
+                diffElement.className = 'age-difference better';
+                metabolicAgeElement.className = 'age-value age-better';
+            } else {
+                diffElement.textContent = 'Same age';
+                diffElement.className = 'age-difference better';
+                metabolicAgeElement.className = 'age-value age-better';
+            }
+        }
 
         function loadMetabolicFactors() {
             const container = document.getElementById('factorsGrid');
@@ -788,27 +1255,26 @@
         }
 
         function drag(e) {
-    if (!isDragging) return;
+            if (!isDragging) return;
 
-    const track = document.getElementById('ageSlider').parentElement;
-    const trackRect = track.getBoundingClientRect();
-    
-    const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-    let x = clientX - trackRect.left;
-    
-    // Keep within bounds
-    x = Math.max(sliderMinX, Math.min(x, sliderMaxX));
-    
-    // Convert position to age (20-65 range)
-    const age = 20 + ((x - sliderMinX) / (sliderMaxX - sliderMinX)) * 45;
-    
-    // Allow full range movement
-    updateSliderPosition(age);
-    updateSliderAppearance(age);
-    updateImprovementMessage(age);
-    updateDisplayedAge(age);
-}
-
+            const track = document.getElementById('ageSlider').parentElement;
+            const trackRect = track.getBoundingClientRect();
+            
+            const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            let x = clientX - trackRect.left;
+            
+            // Keep within bounds
+            x = Math.max(sliderMinX, Math.min(x, sliderMaxX));
+            
+            // Convert position to age (20-65 range)
+            const age = 20 + ((x - sliderMinX) / (sliderMaxX - sliderMinX)) * 45;
+            
+            // Allow full range movement
+            updateSliderPosition(age);
+            updateSliderAppearance(age);
+            updateImprovementMessage(age);
+            updateDisplayedAge(age);
+        }
 
         function stopDragging() {
             isDragging = false;
@@ -888,22 +1354,21 @@
                 messageContent.textContent = improvement.message;
                 
                 // Show specific metabolic improvements
-metricsList.innerHTML = improvement.metrics.map(metric => {
-    const sign = ageReduction >= 0 ? "-" : "+";
-    return `
-        <div class="metric-item ${metric.impact}">
-            <svg class="metric-icon" viewBox="0 0 24 24" fill="currentColor">
-                <path d="${metric.icon}"/>
-            </svg>
-            <div class="metric-text">
-                <div class="metric-title">${metric.title}</div>
-                <div class="metric-desc">${metric.desc}</div>
-            </div>
-            <span class="metric-impact ${metric.impact}">${sign}${Math.abs(ageReduction)} years</span>
-        </div>
-    `;
-}).join('');
-
+                metricsList.innerHTML = improvement.metrics.map(metric => {
+                    const sign = ageReduction >= 0 ? "-" : "+";
+                    return `
+                        <div class="metric-item ${metric.impact}">
+                            <svg class="metric-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="${metric.icon}"/>
+                            </svg>
+                            <div class="metric-text">
+                                <div class="metric-title">${metric.title}</div>
+                                <div class="metric-desc">${metric.desc}</div>
+                            </div>
+                            <span class="metric-impact ${metric.impact}">${sign}${Math.abs(ageReduction)} years</span>
+                        </div>
+                    `;
+                }).join('');
             }
         }
 
@@ -911,9 +1376,69 @@ metricsList.innerHTML = improvement.metrics.map(metric => {
             alert('Metabolic age assessment scheduling will be available soon! Please contact our support team.');
         }
 
+        function learnMore(program) {
+            const programInfo = {
+                bootcamp: {
+                    name: 'Metabolic Reset Bootcamp',
+                    description: 'Our flagship 12-week intensive program designed specifically for individuals with insulin resistance and metabolic dysfunction.',
+                    includes: 'Supervised workouts, meal planning, weekly body composition tracking, hormone optimization, and lifestyle coaching.'
+                },
+                nutrition: {
+                    name: 'Personalized Nutrition Plan',
+                    description: 'Custom nutrition program based on your genetic profile, food sensitivities, and metabolic needs.',
+                    includes: 'DNA-based meal plans, anti-inflammatory protocols, supplement recommendations, and ongoing nutritionist support.'
+                },
+                consultation: {
+                    name: 'Medical Consultation',
+                    description: 'Comprehensive health assessment with our metabolic medicine specialists.',
+                    includes: 'Full health review, personalized treatment plan, medication optimization, and follow-up protocols.'
+                },
+                wellness: {
+                    name: 'Stress & Sleep Optimization',
+                    description: 'Holistic approach to stress management and sleep quality improvement.',
+                    includes: 'Cortisol regulation protocols, sleep hygiene optimization, mindfulness training, and relaxation techniques.'
+                },
+                testing: {
+                    name: 'Advanced Testing Package',
+                    description: 'Comprehensive laboratory analysis to identify root causes of metabolic dysfunction.',
+                    includes: 'Hormone panels, micronutrient analysis, inflammatory markers, toxin screening, and genetic testing.'
+                },
+                complete: {
+                    name: 'Total Health Transformation',
+                    description: 'Complete 6-month health optimization program combining all our services.',
+                    includes: 'All programs combined with dedicated health coach, priority support, and guaranteed results.'
+                }
+            };
+
+            const info = programInfo[program];
+            const message = `${info.name}\n\n${info.description}\n\nIncludes: ${info.includes}\n\nWould you like to learn more about this program?`;
+            
+            if (confirm(message)) {
+                // Redirect to NusaPulse website with program parameter
+                window.open(`https://nusapulse.my/programs/${program}`, '_blank');
+            }
+        }
+
+        function explorePrograms() {
+            // Show loading state
+            const button = event.target;
+            const originalText = button.textContent;
+            
+            button.textContent = 'Loading...';
+            button.disabled = true;
+
+            setTimeout(() => {
+                // Redirect to NusaPulse main programs page
+                window.open('https://nusapulse.my/health-programs', '_blank');
+                
+                button.textContent = originalText;
+                button.disabled = false;
+            }, 1000);
+        }
+
         function logout() {
-            localStorage.removeItem('healthscreen_token');
-            localStorage.removeItem('healthscreen_user');
+            localStorage.removeItem('NusaPulse_token');
+            localStorage.removeItem('NusaPulse_user');
             window.location.href = 'login.html';
         }
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HealthScreen - Login</title>
+    <title>NusaPulse - Login</title>
     <style>
         * {
             margin: 0;
@@ -213,7 +213,7 @@
 <body>
     <div class="container">
         <div class="left-panel">
-            <div class="logo">🏥 HealthScreen</div>
+            <div class="logo">🏥 NusaPulse</div>
             <div class="tagline">
                 Take control of your health journey with comprehensive health screening analysis and personalized recommendations.
             </div>
@@ -249,7 +249,7 @@
                 <!-- Sign Up Form -->
                 <div id="signupForm" class="form-section">
                     <h2 class="form-title">Create Account</h2>
-                    <p class="form-subtitle">Join HealthScreen today</p>
+                    <p class="form-subtitle">Join NusaPulse today</p>
                     
                     <div id="signupAlert"></div>
                     
@@ -435,8 +435,8 @@
                 
                 if (result.success) {
                     // Store auth token
-                    localStorage.setItem('healthscreen_token', result.token);
-                    localStorage.setItem('healthscreen_user', JSON.stringify(result.user));
+                    localStorage.setItem('NusaPulse_token', result.token);
+                    localStorage.setItem('NusaPulse_user', JSON.stringify(result.user));
                     
                     showAlert('loginAlert', 'Login successful! Redirecting...', 'success');
                     
@@ -551,7 +551,7 @@
         document.getElementById('signupDateOfBirth').max = maxDate.toISOString().split('T')[0];
 
         // Check if user is already logged in
-        if (localStorage.getItem('healthscreen_token')) {
+        if (localStorage.getItem('NusaPulse_token')) {
             window.location.href = 'dashboard.html';
         }
     </script>

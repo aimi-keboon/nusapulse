@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthScreen - Profile Settings</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            color: #333;
+        }
+
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 0 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4facfe;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: #4facfe;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-info {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .logout-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #ff5252;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .page-subtitle {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .profile-sidebar {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .profile-avatar {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .avatar-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 3rem;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .avatar-circle:hover {
+            transform: scale(1.05);
+        }
+
+        .upload-avatar {
+            background: #f1f5f9;
+            color: #4facfe;
+            border: 2px dashed #cbd5e1;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-avatar:hover {
+            border-color: #4facfe;
+            background: #f0f9ff;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            text-decoration: none;
+            color: #64748b;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: #f0f9ff;
+            color: #4facfe;
+        }
+
+        .sidebar-icon {
+            font-size: 1.2rem;
+        }
+
+        .profile-content {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .content-section {
+            display: none;
+            padding: 30px;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #4facfe;
+            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-checkbox {
+            margin-right: 8px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            padding-top: 20px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.3);
+        }
+
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #64748b;
+            border: 1px solid #e2e8f0;
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .info-card {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .info-card-title {
+            font-weight: 600;
+            color: #0c4a6e;
+            margin-bottom: 8px;
+        }
+
+        .info-card-text {
+            color: #075985;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid;
+        }
+
+        .alert-success {
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+            color: #166534;
+        }
+
+        .alert-error {
+            background: #fef2f2;
+            border-color: #fecaca;
+            color: #991b1b;
+        }
+
+        .alert-warning {
+            background: #fffbeb;
+            border-color: #fed7aa;
+            color: #92400e;
+        }
+
+        .health-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .metric-item {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #4facfe;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 5px;
+        }
+
+        .metric-value {
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .password-strength {
+            margin-top: 8px;
+        }
+
+        .strength-bar {
+            height: 4px;
+            background: #e2e8f0;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+
+        .strength-fill {
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .strength-weak { background: #ef4444; width: 25%; }
+        .strength-fair { background: #f59e0b; width: 50%; }
+        .strength-good { background: #84cc16; width: 75%; }
+        .strength-strong { background: #22c55e; width: 100%; }
+
+        .strength-text {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .data-export {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .export-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .export-item:last-child {
+            border-bottom: none;
+        }
+
+        .export-info {
+            flex: 1;
+        }
+
+        .export-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+
+        .export-desc {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .danger-zone {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .danger-title {
+            color: #991b1b;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .danger-text {
+            color: #7f1d1d;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .profile-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .profile-sidebar {
+                position: static;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">🏥 HealthScreen</div>
+            <div class="nav-menu">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="upload.html">Upload Files</a>
+                <a href="history.html">Health History</a>
+                <a href="profile.html" class="active">Profile</a>
+            </div>
+            <div class="user-menu">
+                <span class="user-info" id="userName">Loading...</span>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">Profile Settings</h1>
+            <p class="page-subtitle">Manage your account, health information, and preferences</p>
+        </div>
+
+        <!-- Profile Grid -->
+        <div class="profile-grid">
+            <!-- Sidebar -->
+            <div class="profile-sidebar">
+                <div class="profile-avatar">
+                    <div class="avatar-circle" id="avatarCircle">👤</div>
+                    <button class="upload-avatar" onclick="uploadAvatar()">📷 Change Photo</button>
+                    <input type="file" id="avatarInput" accept="image/*" style="display: none;" onchange="handleAvatarUpload(this)">
+                </div>
+                
+                <ul class="sidebar-menu">
+                    <li><a href="#" class="active" onclick="showSection('personal')"><span class="sidebar-icon">👤</span>Personal Info</a></li>
+                    <li><a href="#" onclick="showSection('health')"><span class="sidebar-icon">🏥</span>Health Profile</a></li>
+                    <li><a href="#" onclick="showSection('security')"><span class="sidebar-icon">🔒</span>Security</a></li>
+                    <li><a href="#" onclick="showSection('notifications')"><span class="sidebar-icon">🔔</span>Notifications</a></li>
+                    <li><a href="#" onclick="showSection('privacy')"><span class="sidebar-icon">🛡️</span>Privacy</a></li>
+                    <li><a href="#" onclick="showSection('data')"><span class="sidebar-icon">📊</span>Data Export</a></li>
+                </ul>
+            </div>
+
+            <!-- Content Area -->
+            <div class="profile-content">
+                <!-- Personal Information -->
+                <div id="personalSection" class="content-section active">
+                    <h2 class="section-title">👤 Personal Information</h2>
+                    
+                    <form id="personalForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label" for="firstName">First Name</label>
+                                <input type="text" id="firstName" class="form-input" value="John" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="lastName">Last Name</label>
+                                <input type="text" id="lastName" class="form-input" value="Doe" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="email">Email Address</label>
+                                <input type="email" id="email" class="form-input" value="john.doe@email.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="phone">Phone Number</label>
+                                <input type="tel" id="phone" class="form-input" value="+1 (555) 123-4567">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="dateOfBirth">Date of Birth</label>
+                                <input type="date" id="dateOfBirth" class="form-input" value="1991-03-15" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="gender">Gender</label>
+                                <select id="gender" class="form-select" required>
+                                    <option value="male" selected>Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                    <option value="prefer-not-to-say">Prefer not to say</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="address">Address</label>
+                            <input type="text" id="address" class="form-input" value="123 Health Street, Wellness City, WC 12345">
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label" for="emergencyContact">Emergency Contact Name</label>
+                                <input type="text" id="emergencyContact" class="form-input" value="Jane Doe">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="emergencyPhone">Emergency Contact Phone</label>
+                                <input type="tel" id="emergencyPhone" class="form-input" value="+1 (555) 987-6543">
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary">Cancel</button>
+                            <button type="submit" class="btn btn-primary">💾 Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Health Profile -->
+                <div id="healthSection" class="content-section">
+                    <h2 class="section-title">🏥 Health Profile</h2>
+                    
+                    <div class="info-card">
+                        <div class="info-card-title">Current Health Metrics</div>
+                        <div class="info-card-text">These values are from your most recent verified health reports.</div>
+                    </div>
+
+                    <div class="health-metrics">
+                        <div class="metric-item">
+                            <div class="metric-label">Height</div>
+                            <div class="metric-value">175 cm</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-label">Current Weight</div>
+                            <div class="metric-value">75 kg</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-label">BMI</div>
+                            <div class="metric-value">24.5</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-label">Metabolic Age</div>
+                            <div class="metric-value">42 years</div>
+                        </div>
+                    </div>
+
+                    <form id="healthForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label" for="height">Height (cm)</label>
+                                <input type="number" id="height" class="form-input" value="175" min="100" max="250">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="targetWeight">Target Weight (kg)</label>
+                                <input type="number" id="targetWeight" class="form-input" value="70" min="30" max="200">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="activityLevel">Activity Level</label>
+                                <select id="activityLevel" class="form-select">
+                                    <option value="sedentary">Sedentary (little/no exercise)</option>
+                                    <option value="light" selected>Light (1-3 days/week)</option>
+                                    <option value="moderate">Moderate (3-5 days/week)</option>
+                                    <option value="active">Active (6-7 days/week)</option>
+                                    <option value="very-active">Very Active (2x/day, intense)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="smokingStatus">Smoking Status</label>
+                                <select id="smokingStatus" class="form-select">
+                                    <option value="never" selected>Never smoked</option>
+                                    <option value="former">Former smoker</option>
+                                    <option value="current">Current smoker</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="medicalHistory">Medical History & Conditions</label>
+                            <textarea id="medicalHistory" class="form-textarea" placeholder="List any chronic conditions, allergies, or significant medical history...">Mild hypertension, managed with lifestyle changes</textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="medications">Current Medications & Supplements</label>
+                            <textarea id="medications" class="form-textarea" placeholder="List current medications, dosages, and supplements...">Multivitamin daily, Omega-3 supplement</textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="healthGoals">Health Goals</label>
+                            <textarea id="healthGoals" class="form-textarea" placeholder="What are your health and wellness goals?">Reduce metabolic age to 35, increase muscle mass, improve cardiovascular fitness</textarea>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary">Cancel</button>
+                            <button type="submit" class="btn btn-primary">💾 Save Health Profile</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Security Settings -->
+                <div id="securitySection" class="content-section">
+                    <h2 class="section-title">🔒 Security Settings</h2>
+                    
+                    <div class="info-card">
+                        <div class="info-card-title">Account Security</div>
+                        <div class="info-card-text">Keep your account secure by using a strong password and enabling two-factor authentication.</div>
+                    </div>
+
+                    <!-- Change Password -->
+                    <form id="passwordForm">
+                        <h3 style="margin-bottom: 15px; color: #1e293b;">Change Password</h3>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="currentPassword">Current Password</label>
+                            <input type="password" id="currentPassword" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="newPassword">New Password</label>
+                            <input type="password" id="newPassword" class="form-input" required onkeyup="checkPasswordStrength(this.value)">
+                            <div class="password-strength">
+                                <div class="strength-bar">
+                                    <div class="strength-fill" id="strengthFill"></div>
+                                </div>
+                                <div class="strength-text" id="strengthText">Enter a password to see strength</div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="confirmPassword">Confirm New Password</label>
+                            <input type="password" id="confirmPassword" class="form-input" required>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">🔐 Update Password</button>
+                        </div>
+                    </form>
+
+                    <!-- Two-Factor Authentication -->
+                    <div style="margin-top: 40px;">
+                        <h3 style="margin-bottom: 15px; color: #1e293b;">Two-Factor Authentication</h3>
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="form-checkbox" id="twoFactorAuth">
+                                Enable two-factor authentication for enhanced security
+                            </label>
+                            <p style="color: #64748b; font-size: 0.9rem; margin-top: 5px;">
+                                Receive SMS codes on your registered phone number for additional security.
+                            </p>
+                        </div>
+                        <button type="button" class="btn btn-secondary" onclick="setupTwoFactor()">📱 Setup 2FA</button>
+                    </div>
+
+                    <!-- Password Reset -->
+                    <div style="margin-top: 40px;">
+                        <h3 style="margin-bottom: 15px; color: #1e293b;">Password Reset</h3>
+                        <p style="color: #64748b; margin-bottom: 15px;">
+                            If you've forgotten your password, you can request a password reset link to be sent to your email.
+                        </p>
+                        <button type="button" class="btn btn-secondary" onclick="requestPasswordReset()">📧 Send Password Reset Email</button>
+                    </div>
+
+                    <!-- Active Sessions -->
+                    <div style="margin-top: 40px;">
+                        <h3 style="margin-bottom: 15px; color: #1e293b;">Active Sessions</h3>
+                        <div style="background: #f8fafc; border-radius: 8px; padding: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                <div>
+                                    <strong>Current Session</strong>
+                                    <div style="font-size: 0.9rem; color: #64748b;">Chrome on Windows • Kuala Lumpur, Malaysia</div>
+                                </div>
+                                <span style="background: #22c55e; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem;">Active</span>
+                            </div>
+                            <div style="font-size: 0.8rem; color: #64748b;">Last activity: Just now</div>
+                        </div>
+                        <button type="button" class="btn btn-danger" style="margin-top: 15px;" onclick="logoutAllDevices()">🚫 Logout All Other Devices</button>
+                    </div>
+                </div>
+
+                <!-- Notifications -->
+                <div id="notificationsSection" class="content-section">
+                    <h2 class="section-title">🔔 Notification Preferences</h2>
+                    
+                    <form id="notificationsForm">
+                        <div style="margin-bottom: 30px;">
+                            <h3 style="margin-bottom: 15px; color: #1e293b;">Email Notifications</h3>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" class="form-checkbox" checked>
+                                    Health report processing updates
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" class="form-checkbox" checked>
+                                    Metabolic age improvements and milestones
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" class="form-checkbox">
+                                    Weekly health insights and tips
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" class="form-checkbox">
+                                    Monthly progress reports
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" class="form-checkbox">
+                                    Reminders for health check-ups
+                                </label>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 30px;">
+                            <h3 style="margin-bottom: 15px; color: #1e293b;">SMS Notifications</h3>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" class="form-checkbox">
+                                    Critical health alerts
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" class="form-checkbox">
+                                    Appointment reminders
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" class="form-checkbox">
+                                    Security alerts
+                                </label>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 30px;">
+                            <h3 style="margin-bottom: 15px; color: #1e293b;">Push Notifications</h3>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" class="form-checkbox" checked>
+                                    Data processing completed
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" class="form-checkbox">
+                                    New health insights available
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" class="form-checkbox">
+                                    Goal achievement notifications
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">💾 Save Notification Settings</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Privacy Settings -->
+                <div id="privacySection" class="content-section">
+                    <h2 class="section-title">🛡️ Privacy Settings</h2>
+                    
+                    <div class="info-card">
+                        <div class="info-card-title">Your Privacy Matters</div>
+                        <div class="info-card-text">We are committed to protecting your health data. Control how your information is used and shared.</div>
+                    </div>
+
+                    <form id="privacyForm">
+                        <div style="margin-bottom: 30px;">
+                            <h3 style="margin-bottom: 15px; color: #1e293b;">Data Sharing</h3>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" class="form-checkbox">
+                                    Allow anonymized data to be used for medical research
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" class="form-checkbox">
+                                    Share insights with healthcare provider network
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" class="form-checkbox">
+                                    Participate in health studies (optional)
+                                </label>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 30px;">
+                            <h3 style="margin-bottom: 15px; color: #1e293b;">Profile Visibility</h3>
+                            <div class="form-group">
+                                <label class="form-label" for="profileVisibility">Who can see your health progress?</label>
+                                <select id="profileVisibility" class="form-select">
+                                    <option value="private" selected>Only me</option>
+                                    <option value="healthcare">Me and my healthcare providers</option>
+                                    <option value="family">Me, healthcare providers, and family</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 30px;">
+                            <h3 style="margin-bottom: 15px; color: #1e293b;">Data Retention</h3>
+                            <div class="form-group">
+                                <label class="form-label" for="dataRetention">How long should we keep your data?</label>
+                                <select id="dataRetention" class="form-select">
+                                    <option value="indefinite" selected>Keep indefinitely (recommended)</option>
+                                    <option value="10years">10 years</option>
+                                    <option value="5years">5 years</option>
+                                    <option value="2years">2 years</option>
+                                </select>
+                                <p style="color: #64748b; font-size: 0.9rem; margin-top: 5px;">
+                                    Longer retention periods allow for better trend analysis and health insights.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">💾 Save Privacy Settings</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Data Export -->
+                <div id="dataSection" class="content-section">
+                    <h2 class="section-title">📊 Data Export & Management</h2>
+                    
+                    <div class="info-card">
+                        <div class="info-card-title">Your Data, Your Control</div>
+                        <div class="info-card-text">Export your health data anytime. You have full control over your information.</div>
+                    </div>
+
+                    <div class="data-export">
+                        <div class="export-item">
+                            <div class="export-info">
+                                <div class="export-title">Complete Health Profile</div>
+                                <div class="export-desc">All your verified health data, trends, and reports in PDF format</div>
+                            </div>
+                            <button class="btn btn-secondary" onclick="exportHealthProfile()">📄 Download PDF</button>
+                        </div>
+                        
+                        <div class="export-item">
+                            <div class="export-info">
+                                <div class="export-title">Raw Data Export</div>
+                                <div class="export-desc">All health metrics in CSV format for analysis</div>
+                            </div>
+                            <button class="btn btn-secondary" onclick="exportRawData()">📈 Download CSV</button>
+                        </div>
+                        
+                        <div class="export-item">
+                            <div class="export-info">
+                                <div class="export-title">Account Information</div>
+                                <div class="export-desc">Personal details, preferences, and account settings</div>
+                            </div>
+                            <button class="btn btn-secondary" onclick="exportAccountData()">⚙️ Download JSON</button>
+                        </div>
+                        
+                        <div class="export-item">
+                            <div class="export-info">
+                                <div class="export-title">Original Reports</div>
+                                <div class="export-desc">Download all your uploaded health reports</div>
+                            </div>
+                            <button class="btn btn-secondary" onclick="exportOriginalReports()">📋 Download ZIP</button>
+                        </div>
+                    </div>
+
+                    <!-- Account Deletion -->
+                    <div class="danger-zone">
+                        <h3 class="danger-title">⚠️ Danger Zone</h3>
+                        <p class="danger-text">
+                            Once you delete your account, there is no going back. This action will permanently delete your account and all associated health data.
+                        </p>
+                        <button class="btn btn-danger" onclick="confirmAccountDeletion()">🗑️ Delete Account</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication
+            const token = localStorage.getItem('healthscreen_token');
+            if (!token) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            loadUserData();
+            setupFormValidation();
+        });
+
+        function loadUserData() {
+            const user = JSON.parse(localStorage.getItem('healthscreen_user')) || { firstName: "John", lastName: "Doe" };
+            const fullName = `${user.firstName} ${user.lastName}`;
+            
+            document.getElementById('userName').textContent = fullName;
+            document.getElementById('mobileUserName').textContent = fullName;
+            
+            // Load saved form data
+            loadPersonalInfo();
+        }
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuIcon = document.getElementById('menuIcon');
+            
+            mobileMenu.classList.toggle('active');
+            
+            // Change hamburger to X when open
+            if (mobileMenu.classList.contains('active')) {
+                menuIcon.textContent = '✕';
+            } else {
+                menuIcon.textContent = '☰';
+            }
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            const navbar = document.querySelector('.navbar');
+            
+            if (!navbar.contains(event.target) && mobileMenu.classList.contains('active')) {
+                mobileMenu.classList.remove('active');
+                document.getElementById('menuIcon').textContent = '☰';
+            }
+        });
+
+        function loadPersonalInfo() {
+            // Load from localStorage or default values
+            const personalData = JSON.parse(localStorage.getItem('healthscreen_personal')) || {};
+            
+            if (personalData.firstName) document.getElementById('firstName').value = personalData.firstName;
+            if (personalData.lastName) document.getElementById('lastName').value = personalData.lastName;
+            if (personalData.email) document.getElementById('email').value = personalData.email;
+            // ... load other fields
+        }
+
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionName + 'Section').classList.add('active');
+            
+            // Update sidebar menu
+            document.querySelectorAll('.sidebar-menu a').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function uploadAvatar() {
+            document.getElementById('avatarInput').click();
+        }
+
+        function handleAvatarUpload(input) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const avatarCircle = document.getElementById('avatarCircle');
+                    avatarCircle.style.backgroundImage = `url(${e.target.result})`;
+                    avatarCircle.style.backgroundSize = 'cover';
+                    avatarCircle.style.backgroundPosition = 'center';
+                    avatarCircle.textContent = '';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function setupFormValidation() {
+            // Personal form
+            document.getElementById('personalForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                savePersonalInfo();
+            });
+
+            // Health form
+            document.getElementById('healthForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                saveHealthInfo();
+            });
+
+            // Password form
+            document.getElementById('passwordForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                changePassword();
+            });
+
+            // Notifications form
+            document.getElementById('notificationsForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                saveNotificationSettings();
+            });
+
+            // Privacy form
+            document.getElementById('privacyForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                savePrivacySettings();
+            });
+        }
+
+        function savePersonalInfo() {
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                dateOfBirth: document.getElementById('dateOfBirth').value,
+                gender: document.getElementById('gender').value,
+                address: document.getElementById('address').value,
+                emergencyContact: document.getElementById('emergencyContact').value,
+                emergencyPhone: document.getElementById('emergencyPhone').value
+            };
+
+            // Save to localStorage (in real app, would send to server)
+            localStorage.setItem('healthscreen_personal', JSON.stringify(formData));
+            localStorage.setItem('healthscreen_user', JSON.stringify({
+                firstName: formData.firstName,
+                lastName: formData.lastName
+            }));
+
+            showAlert('success', 'Personal information updated successfully!');
+        }
+
+        function saveHealthInfo() {
+            const healthData = {
+                height: document.getElementById('height').value,
+                targetWeight: document.getElementById('targetWeight').value,
+                activityLevel: document.getElementById('activityLevel').value,
+                smokingStatus: document.getElementById('smokingStatus').value,
+                medicalHistory: document.getElementById('medicalHistory').value,
+                medications: document.getElementById('medications').value,
+                healthGoals: document.getElementById('healthGoals').value
+            };
+
+            localStorage.setItem('healthscreen_health_profile', JSON.stringify(healthData));
+            showAlert('success', 'Health profile updated successfully!');
+        }
+
+        function changePassword() {
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (newPassword !== confirmPassword) {
+                showAlert('error', 'New passwords do not match!');
+                return;
+            }
+
+            if (newPassword.length < 8) {
+                showAlert('error', 'Password must be at least 8 characters long!');
+                return;
+            }
+
+            // Simulate password change
+            setTimeout(() => {
+                showAlert('success', 'Password updated successfully!');
+                document.getElementById('passwordForm').reset();
+            }, 1000);
+        }
+
+        function checkPasswordStrength(password) {
+            const strengthFill = document.getElementById('strengthFill');
+            const strengthText = document.getElementById('strengthText');
+            
+            let strength = 0;
+            let text = '';
+            let className = '';
+
+            if (password.length >= 8) strength++;
+            if (/[a-z]/.test(password)) strength++;
+            if (/[A-Z]/.test(password)) strength++;
+            if (/[0-9]/.test(password)) strength++;
+            if (/[^A-Za-z0-9]/.test(password)) strength++;
+
+            switch (strength) {
+                case 0:
+                case 1:
+                    text = 'Very Weak';
+                    className = 'strength-weak';
+                    break;
+                case 2:
+                    text = 'Weak';
+                    className = 'strength-weak';
+                    break;
+                case 3:
+                    text = 'Fair';
+                    className = 'strength-fair';
+                    break;
+                case 4:
+                    text = 'Good';
+                    className = 'strength-good';
+                    break;
+                case 5:
+                    text = 'Strong';
+                    className = 'strength-strong';
+                    break;
+            }
+
+            strengthFill.className = `strength-fill ${className}`;
+            strengthText.textContent = text;
+        }
+
+        function setupTwoFactor() {
+            alert('Two-factor authentication setup will redirect you to verify your phone number. This feature enhances your account security.');
+        }
+
+        function requestPasswordReset() {
+            const email = document.getElementById('email').value;
+            
+            if (!email) {
+                showAlert('error', 'Please ensure your email address is saved in your profile first.');
+                return;
+            }
+
+            const button = event.target;
+            const originalText = button.textContent;
+            
+            button.textContent = 'Sending...';
+            button.disabled = true;
+
+            setTimeout(() => {
+                showAlert('success', `Password reset link has been sent to ${email}. Please check your inbox and spam folder.`);
+                button.textContent = originalText;
+                button.disabled = false;
+            }, 2000);
+        }
+
+        function logoutAllDevices() {
+            if (confirm('This will log you out of all devices except this one. Continue?')) {
+                showAlert('success', 'Successfully logged out of all other devices.');
+            }
+        }
+
+        function saveNotificationSettings() {
+            showAlert('success', 'Notification preferences saved successfully!');
+        }
+
+        function savePrivacySettings() {
+            showAlert('success', 'Privacy settings updated successfully!');
+        }
+
+        function exportHealthProfile() {
+            const button = event.target;
+            const originalText = button.textContent;
+            
+            button.textContent = '⏳ Generating...';
+            button.disabled = true;
+
+            setTimeout(() => {
+                showAlert('success', 'Your complete health profile PDF has been generated and will download shortly.');
+                button.textContent = originalText;
+                button.disabled = false;
+            }, 2000);
+        }
+
+        function exportRawData() {
+            const csvData = [
+                ['Date', 'Metric', 'Value', 'Unit', 'Status'],
+                ['2024-08-15', 'Metabolic Age', '42', 'years', 'fair'],
+                ['2024-08-15', 'HbA1c', '5.8', '%', 'good'],
+                ['2024-08-15', 'Muscle Mass', '65.2', 'kg', 'fair'],
+                // Add more data...
+            ];
+            
+            const csvContent = csvData.map(row => row.join(',')).join('\n');
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.setAttribute('hidden', '');
+            a.setAttribute('href', url);
+            a.setAttribute('download', 'health_data_export.csv');
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        function exportAccountData() {
+            const accountData = {
+                personalInfo: JSON.parse(localStorage.getItem('healthscreen_personal') || '{}'),
+                healthProfile: JSON.parse(localStorage.getItem('healthscreen_health_profile') || '{}'),
+                exportDate: new Date().toISOString()
+            };
+            
+            const jsonContent = JSON.stringify(accountData, null, 2);
+            const blob = new Blob([jsonContent], { type: 'application/json' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.setAttribute('hidden', '');
+            a.setAttribute('href', url);
+            a.setAttribute('download', 'account_data_export.json');
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        function exportOriginalReports() {
+            showAlert('success', 'Your original reports archive is being prepared and will be available for download shortly.');
+        }
+
+        function confirmAccountDeletion() {
+            const confirmation = prompt('This action cannot be undone. Type "DELETE MY ACCOUNT" to confirm:');
+            
+            if (confirmation === 'DELETE MY ACCOUNT') {
+                if (confirm('Are you absolutely sure? This will permanently delete all your health data.')) {
+                    // Simulate account deletion
+                    alert('Account deletion request has been submitted. You will receive a confirmation email within 24 hours.');
+                }
+            } else if (confirmation !== null) {
+                showAlert('error', 'Confirmation text did not match. Account deletion cancelled.');
+            }
+        }
+
+        function showAlert(type, message) {
+            // Create alert element
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type}`;
+            alertDiv.textContent = message;
+            
+            // Insert at top of current section
+            const activeSection = document.querySelector('.content-section.active');
+            activeSection.insertBefore(alertDiv, activeSection.firstChild);
+            
+            // Remove after 5 seconds
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+
+        function logout() {
+            localStorage.removeItem('healthscreen_token');
+            localStorage.removeItem('healthscreen_user');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>
