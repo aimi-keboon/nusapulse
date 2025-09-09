@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sihatcare Wellness Bootcamp - Transform Your Health Journey</title>
+    <title>NusaPulse - From Screening to Action</title>
     <style>
         * {
             margin: 0;
@@ -340,6 +340,110 @@
             color: #2c3e50;
         }
 
+        .about {
+            background: white;
+            text-align: center;
+            padding: 6rem 2rem;
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .how-it-works {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .step:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .step::after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            right: -1rem;
+            width: 2rem;
+            height: 2px;
+            background: #667eea;
+            z-index: -1;
+        }
+
+        .step:last-child::after {
+            display: none;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+        }
+
+        .step h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .step p {
+            color: #666;
+            line-height: 1.6;
+        }
+
         .packages {
             background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
             color: white;
@@ -364,6 +468,12 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .package-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 70px rgba(102, 126, 234, 0.2);
         }
 
         .package-card.featured {
@@ -402,7 +512,7 @@
             vertical-align: top;
         }
 
-        .upgrade-pricing {
+        .special-price {
             background: rgba(255,255,255,0.1);
             border-radius: 10px;
             padding: 1rem;
@@ -410,7 +520,7 @@
             border-left: 4px solid #FFD700;
         }
 
-        .upgrade-pricing p {
+        .special-price p {
             margin: 0.5rem 0;
             font-size: 0.9rem;
         }
@@ -431,6 +541,7 @@
             padding: 0.5rem 0;
             padding-left: 2rem;
             position: relative;
+            font-size: 0.95rem;
         }
 
         .package-features li::before {
@@ -441,48 +552,20 @@
             font-weight: bold;
         }
 
-        .process {
-            background: white;
+        .package-features li.unavailable::before {
+            content: '–';
+            color: #ccc;
         }
 
-        .process-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .step {
-            text-align: center;
-            position: relative;
-        }
-
-        .step::after {
-            content: '';
-            position: absolute;
-            top: 40px;
-            right: -1rem;
-            width: 2rem;
-            height: 2px;
-            background: #667eea;
-            z-index: -1;
-        }
-
-        .step:last-child::after {
-            display: none;
-        }
-
-        .step-number {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            font-weight: 700;
-            margin: 0 auto 1.5rem;
+        .why-choose {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.9);
+            font-style: italic;
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
         .cta-section {
@@ -642,6 +725,14 @@
             .contact-form {
                 grid-template-columns: 1fr;
             }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .step::after {
+                display: none;
+            }
         }
 
         .floating-elements {
@@ -692,6 +783,29 @@
             75% { transform: translate(-30px, -30px) rotate(270deg); }
             100% { transform: translate(0, 0) rotate(360deg); }
         }
+
+        /* Animation classes */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
@@ -699,15 +813,16 @@
         <div class="container">
             <div class="nav-content">
                 <div class="logo">
-                    <h2>Sihat<span class="pulse-logo">Care</span></h2>
+                    <h2>Nusa<span class="pulse-logo">Pulse</span></h2>
                 </div>
                 <nav class="nav-menu">
+                    <a href="#about" class="nav-link">About</a>
                     <a href="#packages" class="nav-link">Packages</a>
-                    <a href="#process" class="nav-link">How It Works</a>
+                    <a href="#resources" class="nav-link">Resources</a>
                     <a href="#contact" class="nav-link">Contact</a>
                 </nav>
                 <div class="nav-cta">
-                    <a href="#packages" class="btn-header">Get Started</a>
+                    <a href="/login.html" class="btn-header">Login</a>
                 </div>
                 <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle mobile menu">
                     <span></span>
@@ -718,12 +833,13 @@
         </div>
         <div class="mobile-menu" id="mobile-menu">
             <div class="mobile-menu-links">
+                <a href="#about" class="nav-link" onclick="closeMobileMenu()">About</a>
                 <a href="#packages" class="nav-link" onclick="closeMobileMenu()">Packages</a>
-                <a href="#process" class="nav-link" onclick="closeMobileMenu()">How It Works</a>
+                <a href="#resources" class="nav-link" onclick="closeMobileMenu()">Resources</a>
                 <a href="#contact" class="nav-link" onclick="closeMobileMenu()">Contact</a>
             </div>
             <div class="mobile-menu-cta">
-                <a href="#packages" class="btn-header" onclick="closeMobileMenu()">Get Started</a>
+                <a href="#packages" class="btn-header" onclick="closeMobileMenu()">Login</a>
             </div>
         </div>
     </header>
@@ -738,31 +854,31 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
-                    <h1>Sihat<span class="pulse">Care</span> Wellness Bootcamp</h1>
-                    <p>Transform your health with personalized workouts designed specifically for your health condition. Get professional guidance, comprehensive health screening, and ongoing support to achieve your wellness goals.</p>
+                    <h1>From Screening to <span class="pulse">Action</span></h1>
+                    <p>Personalized Health Journey for YOU. Most health screenings end with numbers, NusaPulse guides you to take action with comprehensive health solutions and ongoing support.</p>
                     <div class="cta-buttons">
-                        <a href="#packages" class="btn btn-primary">Start Your Journey</a>
-                        <a href="#process" class="btn btn-secondary">Learn More</a>
+                        <a href="#packages" class="btn btn-primary">Book Now</a>
+                        <a href="#packages" class="btn btn-secondary">Explore Packages</a>
                     </div>
                 </div>
                 <div class="hero-visual">
                     <div class="stats-card">
                         <div class="stats-grid">
                             <div class="stat">
-                                <span class="stat-number">12</span>
-                                <div class="stat-label">Weeks of Coaching</div>
+                                <span class="stat-number">24/7</span>
+                                <div class="stat-label">Professional Support</div>
                             </div>
                             <div class="stat">
                                 <span class="stat-number">100%</span>
                                 <div class="stat-label">Personalized</div>
                             </div>
                             <div class="stat">
-                                <span class="stat-number">24/7</span>
-                                <div class="stat-label">Support Access</div>
-                            </div>
-                            <div class="stat">
                                 <span class="stat-number">1:1</span>
                                 <div class="stat-label">Expert Guidance</div>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">6mo</span>
+                                <div class="stat-label">Follow-up Care</div>
                             </div>
                         </div>
                     </div>
@@ -771,29 +887,36 @@
         </div>
     </section>
 
-    <section id="process" class="section process">
+    <section class="about" id="about">
+        <div class="about-container fade-in">
+            <h2>About NusaPulse</h2>
+            <p>Most health screenings end with numbers, NusaPulse guides you to take action. We provide comprehensive health solutions from basic screening to premium DNA analysis, personalized supplements, and ongoing medical support.</p>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="section how-it-works">
         <div class="container">
-            <h2 class="section-title">Your Journey in 4 Simple Steps</h2>
+            <h2 class="section-title fade-in">How It Works</h2>
             <div class="process-steps">
-                <div class="step">
+                <div class="step fade-in">
                     <div class="step-number">1</div>
-                    <h3>Health Screening</h3>
-                    <p>Visit our partner gym or clinic for comprehensive health checkup and body scan to assess your current condition.</p>
+                    <h3>Get Tested</h3>
+                    <p>We come to you — comprehensive health screening at your convenience with no clinic wait times.</p>
                 </div>
-                <div class="step">
+                <div class="step fade-in">
                     <div class="step-number">2</div>
-                    <h3>Professional Consultation</h3>
-                    <p>Meet with our qualified doctor or trainer for personalized consultation and custom health journey planning.</p>
+                    <h3>Understand Your Results</h3>
+                    <p>Clear, actionable insights from your health data including biological age and personalized analysis.</p>
                 </div>
-                <div class="step">
+                <div class="step fade-in">
                     <div class="step-number">3</div>
-                    <h3>Begin Your Program</h3>
-                    <p>Start your tailored workout and dietary plan with weekly coaching sessions and continuous monitoring.</p>
+                    <h3>Take Action</h3>
+                    <p>Receive customized supplements and personalized plans tailored to your results — no guesswork.</p>
                 </div>
-                <div class="step">
+                <div class="step fade-in">
                     <div class="step-number">4</div>
-                    <h3>Achieve Your Goals</h3>
-                    <p>Experience real transformation with ongoing support, community encouragement, and professional guidance.</p>
+                    <h3>Track Progress</h3>
+                    <p>Monitor your health journey with ongoing doctor follow-ups and professional accountability.</p>
                 </div>
             </div>
         </div>
@@ -801,77 +924,96 @@
 
     <section id="packages" class="section packages">
         <div class="container">
-            <h2 class="section-title">Choose Your Package</h2>
+            <h2 class="section-title fade-in">Choose Your Health Journey</h2>
             <div class="packages-grid">
-                <div class="package-card">
-                    <h3 class="package-title">Health Assessment</h3>
+                <!-- Basic Health Screen -->
+                <div class="package-card fade-in">
+                    <h3 class="package-title">Basic Health Screen</h3>
                     <div class="package-price">
-                        <span class="package-currency">RM</span>699
+                        <span class="package-currency">RM</span>299
                     </div>
-                    <p>Perfect for those who want to understand their health status first</p>
+                    <p>Perfect for a quick yearly health check to stay on top of your wellbeing</p>
                     <ul class="package-features">
-                        <li>Complete health screening</li>
-                        <li>Comprehensive body scan</li>
-                        <li>One-time online consultation</li>
-                        <li>Personalized health plan</li>
-                        <li>Professional assessment report</li>
-                        <li>Option to upgrade to full bootcamp</li>
+                        <li>We come to you — no clinic wait times</li>
+                        <li>Essential blood panel to catch common health issues early</li>
+                        <li class="unavailable">Personalisation</li>
+                        <li class="unavailable">Supplements</li>
+                        <li class="unavailable">Follow-Up Care</li>
                     </ul>
-                    <div class="upgrade-pricing">
-                        <p><strong>Upgrade to Bootcamp:</strong> RM2,899</p>
-                        <p class="save-note">
-                            
-                            Save RM99 by choosing the Complete Bootcamp directly!
-                        </p>
+                    <div class="why-choose">
+                        Perfect for a quick yearly health check to stay on top of your wellbeing.
                     </div>
-                    <a href="https://buy.stripe.com/6oUcN6a7P9sZ415fJjgw000" class="btn btn-primary">Get Assessment</a>
+                    <a href="#contact" class="btn btn-primary">Choose Basic</a>
                 </div>
                 
-                <div class="package-card featured">
+                <!-- Premium Health Screen -->
+                <div class="package-card featured fade-in">
+                    <h3 class="package-title">Premium Health Screen</h3>
+                    <div class="package-price">
+                        <span class="package-currency">RM</span>3,999
+                    </div>
+                    <p>The comprehensive health optimization experience</p>
+                    <ul class="package-features">
+                        <li>We come to you — plus collect blood & DNA sample for a full picture of your health</li>
+                        <li>Comprehensive blood + DNA test to detect hidden risks & understand your unique health blueprint</li>
+                        <li>Know your <strong>biological age</strong> and get a <strong>personalised plan</strong> to reverse or slow ageing</li>
+                        <li>Receive <strong>customised supplements</strong> tailored to your results — no guesswork</li>
+                        <li>6-month <strong>doctor follow-up</strong> to track your progress and keep you accountable</li>
+                    </ul>
+                    <div class="why-choose">
+                        Ideal if you want to <strong>optimise health, prevent disease, and take control of your future.</strong>
+                    </div>
+                    <a href="#contact" class="btn btn-primary">Choose Premium</a>
+                </div>
+
+                <!-- Complete Bootcamp -->
+                <div class="package-card fade-in">
                     <h3 class="package-title">Complete Bootcamp</h3>
                     <div class="package-price">
                         <span class="package-currency">RM</span>3,499
                     </div>
-                    <p>The full transformation experience with ongoing support</p>
+                    <p>The most comprehensive transformation program</p>
                     <ul class="package-features">
-                        <li>Everything in Health Assessment</li>
                         <li>12 weeks of professional coaching</li>
-                        <li>Weekly monitoring & follow-ups</li>
                         <li>Face-to-face + virtual sessions</li>
+                        <li>24/7 professional support</li>
+                        <li>Everything in Health Assessment</li>
+                        <li>Weekly monitoring & follow-ups</li>
                         <li>Exclusive community chat group</li>
                         <li>Dietary guidance & meal planning</li>
                         <li>Progress tracking & adjustments</li>
-                        <li>24/7 professional support</li>
                     </ul>
-                    <a href="https://buy.stripe.com/8x2fZia7PdJf1SX68Jgw001" class="btn btn-primary">Start Bootcamp</a>
+                    <div class="why-choose">
+                        🌟 The most <strong>comprehensive transformation program</strong>, combining coaching, nutrition, and accountability for long-term results.
+                    </div>
+                    <a href="#contact" class="btn btn-primary">Choose Bootcamp</a>
                 </div>
-                 <div class="package-card">
+                
+                <!-- Ozempic Treatment -->
+                <div class="package-card fade-in">
                     <h3 class="package-title">Ozempic Treatment</h3>
                     <div class="package-price">
                         <span class="package-currency">RM</span>950
                     </div>
                     <p>Accelerate your weight loss journey - perfect when combined with exercise</p>
                     <ul class="package-features">
+                        <li>Medical consultation included</li>
+                        <li>Prescription by licensed physician</li>
                         <li>Genuine Ozempic injection pen</li>
                         <li>Reduces appetite & food cravings</li>
                         <li>Enhances workout effectiveness</li>
                         <li>Faster fat burning when exercising</li>
                         <li>Better energy levels for training</li>
                         <li>Improved metabolism & recovery</li>
-                        <li>Medical consultation included</li>
-                        <li>Prescription by licensed physician</li>
                     </ul>
-                    <div class="upgrade-pricing">
+                    <div class="special-price">
                         <p><strong>Participants Special Price:</strong> RM849/pen</p>
                         <p class="save-note">
-                           
-                            Save more than RM150 with our bundled packages!
+                            🌟 The <strong>fastest way to accelerate weight loss</strong>, especially when paired with exercise.
                         </p>
                     </div>
-                    <a href="https://buy.stripe.com/5kQaEY1BjdJf2X1dBbgw002" class="btn btn-primary">Buy Now</a>
-                    
+                    <a href="#contact" class="btn btn-primary">Choose Ozempic</a>
                 </div>
-                
             </div>
         </div>
     </section>
@@ -879,12 +1021,12 @@
     <section class="cta-section" id="contact">
         <div class="container">
             <h2>Ready to Transform Your Health?</h2>
-            <p>Join hundreds of participants who have already started their wellness journey with Sihatcare Wellness Bootcamp</p>
+            <p>Join hundreds of participants who have already started their wellness journey with NusaPulse</p>
             <div class="cta-content">
                 <div class="contact-form-container">
                     <h3>Contact Us</h3>
                     <form action="https://formspree.io/f/meozkdrw" method="POST" class="contact-form">
-                        <input type="hidden" name="_subject" value="Sihatcare Wellness Contact Us Form Submission">
+                        <input type="hidden" name="_subject" value="NusaPulse Contact Form Submission">
                         <div class="form-group">
                             <label for="name">Full Name</label>
                             <input type="text" id="name" name="name" required>
@@ -916,12 +1058,12 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 Nusapulse Tech Sdn Bhd. All rights reserved. | Transform your health, transform your life.</p>
+            <p>&copy; 2025 NusaPulse Tech Sdn Bhd. All rights reserved. | From Screening to Action - Transform your health, transform your life.</p>
         </div>
     </footer>
 
     <script>
-        // Simple mobile menu toggle functions
+        // Mobile menu toggle functions
         function toggleMobileMenu() {
             const toggle = document.querySelector('.mobile-menu-toggle');
             const menu = document.getElementById('mobile-menu');
@@ -963,7 +1105,7 @@
             });
         });
 
-        // Add scroll animation for cards
+        // Intersection Observer for fade-in animations
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -975,29 +1117,64 @@
                     entry.target.style.animationDelay = 
                         Array.from(entry.target.parentNode.children).indexOf(entry.target) * 0.1 + 's';
                     entry.target.style.animation = 'slideInUp 0.6s ease forwards';
+                    entry.target.classList.add('visible');
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.package-card, .step').forEach(card => {
-            observer.observe(card);
+        // Observe all elements with fade-in class
+        document.querySelectorAll('.fade-in, .package-card, .step').forEach(el => {
+            observer.observe(el);
         });
 
-        // Add CSS for slide in animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideInUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(30px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = 'none';
             }
-        `;
-        document.head.appendChild(style);
+        });
+
+        // Add click handlers for package buttons
+        document.querySelectorAll('.package-card .btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if (this.getAttribute('href') === '#contact') {
+                    e.preventDefault();
+                    const packageName = this.closest('.package-card').querySelector('.package-title').textContent;
+                    const contactSection = document.querySelector('#contact');
+                    const inquiryField = document.querySelector('#inquiry');
+                    
+                    // Scroll to contact form
+                    contactSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Pre-fill the inquiry field
+                    setTimeout(() => {
+                        inquiryField.value = `I'm interested in the ${packageName} package. Please provide me with more information.`;
+                        inquiryField.focus();
+                    }, 1000);
+                }
+            });
+        });
+
+        // Form submission handling
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            const submitBtn = this.querySelector('.form-submit');
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            // Re-enable button after 3 seconds (form will redirect)
+            setTimeout(() => {
+                submitBtn.textContent = 'Send Message';
+                submitBtn.disabled = false;
+            }, 3000);
+        });
     </script>
 </body>
 </html>

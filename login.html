@@ -47,6 +47,15 @@
             font-size: 2.5rem;
             font-weight: bold;
             margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            text-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         .tagline {
@@ -213,7 +222,7 @@
 <body>
     <div class="container">
         <div class="left-panel">
-            <div class="logo">🏥 NusaPulse</div>
+            <a href="index.html" class="logo">NusaPulse</a>
             <div class="tagline">
                 Take control of your health journey with comprehensive health screening analysis and personalized recommendations.
             </div>
