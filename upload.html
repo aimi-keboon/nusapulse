@@ -1,593 +1,648 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NusaPulse - Upload Reports</title>
     <script src="config.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f8fafc;
-            color: #333;
-        }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        background: #f8fafc;
+        color: #333;
+      }
 
-        .navbar {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 0 20px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+      .navbar {
+        background: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 0 20px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
 
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 70px;
-        }
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 70px;
+      }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #4facfe;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+      .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #4facfe;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
 
-        .logo img {
-            height: 40px;
-            width: auto;
-        }
+      .logo img {
+        height: 40px;
+        width: auto;
+      }
 
-        .nav-menu {
-            display: flex;
-            gap: 30px;
-        }
+      .nav-menu {
+        display: flex;
+        gap: 30px;
+      }
 
-        .nav-menu a {
-            text-decoration: none;
-            color: #666;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
+      .nav-menu a {
+        text-decoration: none;
+        color: #666;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
 
-        .nav-menu a:hover,
-        .nav-menu a.active {
-            color: #4facfe;
-        }
+      .nav-menu a:hover,
+      .nav-menu a.active {
+        color: #4facfe;
+      }
 
-        .user-menu {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+      .user-menu {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
 
-        .user-info {
-            font-weight: 500;
-            color: #333;
-        }
+      .user-info {
+        font-weight: 500;
+        color: #333;
+      }
 
-        .logout-btn {
-            background: #ff6b6b;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: background 0.3s ease;
-        }
+      .logout-btn {
+        background: #ff6b6b;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: background 0.3s ease;
+      }
 
-        .logout-btn:hover {
-            background: #ff5252;
-        }
+      .logout-btn:hover {
+        background: #ff5252;
+      }
 
-        .main-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 30px 20px;
-        }
+      .main-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 30px 20px;
+      }
 
-        .page-header {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            text-align: center;
-        }
+      .page-header {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        color: white;
+        padding: 30px;
+        border-radius: 15px;
+        margin-bottom: 30px;
+        text-align: center;
+      }
 
-        .page-title {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
+      .page-title {
+        font-size: 2rem;
+        margin-bottom: 10px;
+      }
 
-        .page-subtitle {
-            opacity: 0.9;
-            font-size: 1.1rem;
-        }
+      .page-subtitle {
+        opacity: 0.9;
+        font-size: 1.1rem;
+      }
 
-        .alert {
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            display: none;
-        }
+      .alert {
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        display: none;
+      }
 
-        .alert.show {
-            display: block;
-        }
+      .alert.show {
+        display: block;
+      }
 
-        .alert-error {
-            background: #fee;
-            color: #c33;
-            border: 1px solid #fcc;
-        }
+      .alert-error {
+        background: #fee;
+        color: #c33;
+        border: 1px solid #fcc;
+      }
 
-        .alert-success {
-            background: #efe;
-            color: #3c3;
-            border: 1px solid #cfc;
-        }
+      .alert-success {
+        background: #efe;
+        color: #3c3;
+        border: 1px solid #cfc;
+      }
 
-        .upload-section {
-            margin-bottom: 40px;
-        }
+      .alert-warning {
+        background: #fffbeb;
+        color: #92400e;
+        border: 1px solid #fed7aa;
+      }
 
-        .section-title {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: #1e293b;
-        }
+      .upload-section {
+        margin-bottom: 40px;
+      }
 
+      .section-title {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        color: #1e293b;
+      }
+
+      .instructions-card {
+        background: #f0f9ff;
+        border: 2px solid #bae6fd;
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 30px;
+      }
+
+      .instructions-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #0c4a6e;
+        margin-bottom: 15px;
+      }
+
+      .instructions-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .instructions-list li {
+        padding: 10px 0;
+        padding-left: 30px;
+        position: relative;
+        color: #075985;
+        line-height: 1.6;
+      }
+
+      .instructions-list li:before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: #0ea5e9;
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+
+      .upload-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 25px;
+        margin-bottom: 30px;
+      }
+
+      .upload-card {
+        background: white;
+        border: 2px solid #e2e8f0;
+        border-radius: 15px;
+        padding: 30px;
+        transition: all 0.3s ease;
+      }
+
+      .upload-card.submitted {
+        border-color: #22c55e;
+        background: #f0fdf4;
+      }
+
+      .upload-icon {
+        font-size: 3rem;
+        margin-bottom: 15px;
+        text-align: center;
+      }
+
+      .upload-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #1e293b;
+        text-align: center;
+      }
+
+      .upload-description {
+        color: #64748b;
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+        line-height: 1.5;
+        text-align: center;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      .form-label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #374151;
+        font-size: 0.9rem;
+      }
+
+      .form-input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .form-input:focus {
+        outline: none;
+        border-color: #4facfe;
+        box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+      }
+
+      .form-textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        resize: vertical;
+        min-height: 80px;
+      }
+
+      .upload-button {
+        background: #4facfe;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        width: 100%;
+      }
+
+      .upload-button:hover {
+        background: #3b95fe;
+      }
+
+      .upload-button:disabled {
+        background: #94a3b8;
+        cursor: not-allowed;
+      }
+
+      .upload-card.submitted .upload-button {
+        background: #22c55e;
+      }
+
+      .status-badge {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-top: 10px;
+      }
+
+      .status-submitted {
+        background: #dcfce7;
+        color: #166534;
+      }
+
+      .submit-section {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .submit-info {
+        color: #64748b;
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+      }
+
+      .submit-button {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        color: white;
+        border: none;
+        padding: 15px 40px;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+      }
+
+      .submit-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(79, 172, 254, 0.4);
+      }
+
+      .submit-button:disabled {
+        background: #94a3b8;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      @media (max-width: 768px) {
         .upload-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
-            margin-bottom: 30px;
+          grid-template-columns: 1fr;
         }
-
-        .upload-card {
-            background: #f8fafc;
-            border: 2px dashed #cbd5e1;
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .upload-card:hover {
-            border-color: #4facfe;
-            background: #f0f9ff;
-            transform: translateY(-2px);
-        }
-
-        .upload-card.dragover {
-            border-color: #4facfe;
-            background: #f0f9ff;
-            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.2);
-        }
-
-        .upload-card.uploaded {
-            border-color: #22c55e;
-            background: #f0fdf4;
-            border-style: solid;
-        }
-
-        .upload-card.uploading {
-            border-color: #f59e0b;
-            background: #fffbeb;
-            pointer-events: none;
-        }
-
-        .upload-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-        }
-
-        .upload-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #1e293b;
-        }
-
-        .upload-description {
-            color: #64748b;
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-
-        .upload-input {
-            display: none;
-        }
-
-        .upload-button {
-            background: #4facfe;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .upload-button:hover {
-            background: #3b95fe;
-        }
-
-        .upload-card.uploaded .upload-button {
-            background: #22c55e;
-        }
-
-        .file-info {
-            margin-top: 15px;
-            padding: 10px;
-            background: white;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            color: #475569;
-            display: none;
-        }
-
-        .upload-card.uploaded .file-info,
-        .upload-card.uploading .file-info {
-            display: block;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 4px;
-            background: #e2e8f0;
-            border-radius: 2px;
-            margin-top: 15px;
-            overflow: hidden;
-            display: none;
-        }
-
-        .upload-card.uploading .progress-bar {
-            display: block;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: #4facfe;
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-
-        .submit-section {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-
-        .submit-info {
-            color: #64748b;
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-        }
-
-        .submit-button {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
-        }
-
-        .submit-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.4);
-        }
-
-        .submit-button:disabled {
-            background: #94a3b8;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        @media (max-width: 768px) {
-            .upload-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <img src="img/logo.jpg" alt="NusaPulse">
-            </div>
-            <div class="nav-menu">
-                <a href="dashboard.html">Dashboard</a>
-                <a href="upload.html" class="active">Upload Files</a>
-                <a href="history.html">Health History</a>
-                <a href="profile.html">Profile</a>
-            </div>
-            <div class="user-menu">
-                <span class="user-info" id="userName">Loading...</span>
-                <button class="logout-btn" onclick="logout()">Logout</button>
-            </div>
+      <div class="nav-container">
+        <div class="logo">
+          <img src="img/logo.jpg" alt="NusaPulse" />
         </div>
+        <div class="nav-menu">
+          <a href="dashboard.html">Dashboard</a>
+          <a href="upload.html" class="active">Upload Files</a>
+          <a href="history.html">Health History</a>
+          <a href="profile.html">Profile</a>
+        </div>
+        <div class="user-menu">
+          <span class="user-info" id="userName">Loading...</span>
+          <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+      </div>
     </nav>
 
     <div class="main-container">
-        <div class="page-header">
-            <h1 class="page-title">Upload Health Reports</h1>
-            <p class="page-subtitle">Upload your health reports for review and analysis</p>
+      <div class="page-header">
+        <h1 class="page-title">Submit Health Reports</h1>
+        <p class="page-subtitle">
+          Share your health report links for review and analysis
+        </p>
+      </div>
+
+      <div id="alertBox" class="alert"></div>
+
+      <div class="upload-section">
+        <h2 class="section-title">How to Submit Your Reports</h2>
+
+        <div class="instructions-card">
+          <div class="instructions-title">Instructions:</div>
+          <ul class="instructions-list">
+            <li>Upload your health report files to your Google Drive</li>
+            <li>Right-click the file and select "Share" or "Get Link"</li>
+            <li>
+              Set sharing to "Anyone with the link" (can be View/Read only)
+            </li>
+            <li>Copy the Google Drive link</li>
+            <li>Paste the link in the form below</li>
+            <li>Add any remarks or notes about the report (optional)</li>
+          </ul>
         </div>
 
-        <div id="alertBox" class="alert"></div>
-
-        <div class="upload-section">
-            <h2 class="section-title">Upload Your Reports</h2>
-            <p style="color: #64748b; margin-bottom: 30px;">
-                Upload your health screening, DNA test, and body composition reports. Our team will review and process your data within 2-3 business days.
+        <div class="upload-grid">
+          <div class="upload-card" id="healthCard">
+            <div class="upload-icon">🩺</div>
+            <h3 class="upload-title">Health Screening Report</h3>
+            <p class="upload-description">
+              Blood work, metabolic panel, lipid profile, HbA1c, liver function,
+              kidney function
             </p>
-            
-            <div class="upload-grid">
-                <div class="upload-card" id="healthCard" onclick="triggerUpload('health')">
-                    <div class="upload-icon">🩺</div>
-                    <h3 class="upload-title">Health Screening Report</h3>
-                    <p class="upload-description">
-                        Blood work, metabolic panel, lipid profile, HbA1c, liver function, kidney function
-                    </p>
-                    <button class="upload-button" type="button">Choose File</button>
-                    <input type="file" id="healthInput" class="upload-input" accept=".pdf,.jpg,.jpeg,.png" onchange="handleFileSelect('health', this)">
-                    <div class="file-info" id="healthInfo"></div>
-                    <div class="progress-bar" id="healthProgress">
-                        <div class="progress-fill"></div>
-                    </div>
-                </div>
 
-                <div class="upload-card" id="dnaCard" onclick="triggerUpload('dna')">
-                    <div class="upload-icon">🧬</div>
-                    <h3 class="upload-title">DNA Test Report</h3>
-                    <p class="upload-description">
-                        Genetic predispositions, metabolism genes, nutrient processing, disease risk factors
-                    </p>
-                    <button class="upload-button" type="button">Choose File</button>
-                    <input type="file" id="dnaInput" class="upload-input" accept=".pdf,.jpg,.jpeg,.png" onchange="handleFileSelect('dna', this)">
-                    <div class="file-info" id="dnaInfo"></div>
-                    <div class="progress-bar" id="dnaProgress">
-                        <div class="progress-fill"></div>
-                    </div>
-                </div>
-
-                <div class="upload-card" id="bodyCard" onclick="triggerUpload('body')">
-                    <div class="upload-icon">⚖️</div>
-                    <h3 class="upload-title">Body Composition Report</h3>
-                    <p class="upload-description">
-                        DEXA scan, InBody analysis, muscle mass, body fat percentage, visceral fat, bone density
-                    </p>
-                    <button class="upload-button" type="button">Choose File</button>
-                    <input type="file" id="bodyInput" class="upload-input" accept=".pdf,.jpg,.jpeg,.png" onchange="handleFileSelect('body', this)">
-                    <div class="file-info" id="bodyInfo"></div>
-                    <div class="progress-bar" id="bodyProgress">
-                        <div class="progress-fill"></div>
-                    </div>
-                </div>
+            <div class="form-group">
+              <label class="form-label" for="healthLink"
+                >Google Drive Link *</label
+              >
+              <input
+                type="url"
+                id="healthLink"
+                class="form-input"
+                placeholder="https://drive.google.com/file/d/..."
+              />
             </div>
 
-            <div class="submit-section">
-                <p class="submit-info">
-                    You can upload reports individually or all at once. Our medical team will verify your data within 2-3 business days.
-                </p>
-                <button class="submit-button" id="submitButton" onclick="submitNotification()" disabled>
-                    No files uploaded yet
-                </button>
+            <div class="form-group">
+              <label class="form-label" for="healthRemarks"
+                >Remarks (Optional)</label
+              >
+              <textarea
+                id="healthRemarks"
+                class="form-textarea"
+                placeholder="Add any notes about this report..."
+              ></textarea>
             </div>
+
+            <button class="upload-button" onclick="submitReport('health')">
+              Submit Report
+            </button>
+            <div id="healthStatus"></div>
+          </div>
+
+          <div class="upload-card" id="dnaCard">
+            <div class="upload-icon">🧬</div>
+            <h3 class="upload-title">DNA Test Report</h3>
+            <p class="upload-description">
+              Genetic predispositions, metabolism genes, nutrient processing,
+              disease risk factors
+            </p>
+
+            <div class="form-group">
+              <label class="form-label" for="dnaLink"
+                >Google Drive Link *</label
+              >
+              <input
+                type="url"
+                id="dnaLink"
+                class="form-input"
+                placeholder="https://drive.google.com/file/d/..."
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="dnaRemarks"
+                >Remarks (Optional)</label
+              >
+              <textarea
+                id="dnaRemarks"
+                class="form-textarea"
+                placeholder="Add any notes about this report..."
+              ></textarea>
+            </div>
+
+            <button class="upload-button" onclick="submitReport('dna')">
+              Submit Report
+            </button>
+            <div id="dnaStatus"></div>
+          </div>
+
+          <div class="upload-card" id="bodyCard">
+            <div class="upload-icon">⚖️</div>
+            <h3 class="upload-title">Body Composition Report</h3>
+            <p class="upload-description">
+              DEXA scan, InBody analysis, muscle mass, body fat percentage,
+              visceral fat, bone density
+            </p>
+
+            <div class="form-group">
+              <label class="form-label" for="bodyLink"
+                >Google Drive Link *</label
+              >
+              <input
+                type="url"
+                id="bodyLink"
+                class="form-input"
+                placeholder="https://drive.google.com/file/d/..."
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="bodyRemarks"
+                >Remarks (Optional)</label
+              >
+              <textarea
+                id="bodyRemarks"
+                class="form-textarea"
+                placeholder="Add any notes about this report..."
+              ></textarea>
+            </div>
+
+            <button class="upload-button" onclick="submitReport('body')">
+              Submit Report
+            </button>
+            <div id="bodyStatus"></div>
+          </div>
         </div>
+
+        <div class="submit-section">
+          <p class="submit-info">
+            Our medical team will review your reports within 2-3 business days.
+            You'll receive an email notification when your verified data is
+            available.
+          </p>
+        </div>
+      </div>
     </div>
 
     <script>
-        const uploadedFiles = {
-            health: null,
-            dna: null,
-            body: null
+      const submittedReports = {
+        health: false,
+        dna: false,
+        body: false,
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const token = localStorage.getItem("NusaPulse_token");
+        if (!token) {
+          window.location.href = "login.html";
+          return;
+        }
+
+        loadUserData();
+      });
+
+      function loadUserData() {
+        const user = JSON.parse(localStorage.getItem("NusaPulse_user")) || {
+          firstName: "John",
+          lastName: "Doe",
         };
+        document.getElementById(
+          "userName"
+        ).textContent = `${user.firstName} ${user.lastName}`;
+      }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const token = localStorage.getItem('NusaPulse_token');
-            if (!token) {
-                window.location.href = 'login.html';
-                return;
-            }
-
-            loadUserData();
-            setupDragAndDrop();
-        });
-
-        function loadUserData() {
-            const user = JSON.parse(localStorage.getItem('NusaPulse_user')) || { firstName: "John", lastName: "Doe" };
-            document.getElementById('userName').textContent = `${user.firstName} ${user.lastName}`;
+      function validateGoogleDriveLink(link) {
+        if (!link || link.trim() === "") {
+          return { valid: false, message: "Please enter a Google Drive link" };
         }
 
-        function setupDragAndDrop() {
-            const uploadCards = document.querySelectorAll('.upload-card');
-            
-            uploadCards.forEach(card => {
-                card.addEventListener('dragover', handleDragOver);
-                card.addEventListener('dragleave', handleDragLeave);
-                card.addEventListener('drop', handleDrop);
-            });
+        // Check if it contains google.com and either 'drive' or 'docs'
+        const isGoogleLink =
+          link.includes("google.com") &&
+          (link.includes("drive") || link.includes("docs"));
+
+        if (!isGoogleLink) {
+          return {
+            valid: false,
+            message:
+              "Please enter a valid Google Drive link (must contain drive.google.com or docs.google.com)",
+          };
         }
 
-        function handleDragOver(e) {
-            e.preventDefault();
-            e.currentTarget.classList.add('dragover');
+        return { valid: true };
+      }
+
+      async function submitReport(type) {
+        const linkInput = document.getElementById(type + "Link");
+        const remarksInput = document.getElementById(type + "Remarks");
+        const card = document.getElementById(type + "Card");
+        const statusDiv = document.getElementById(type + "Status");
+
+        const link = linkInput.value.trim();
+        const remarks = remarksInput.value.trim();
+
+        const validation = validateGoogleDriveLink(link);
+        if (!validation.valid) {
+          showAlert("error", validation.message);
+          return;
         }
 
-        function handleDragLeave(e) {
-            e.preventDefault();
-            e.currentTarget.classList.remove('dragover');
+        const user = JSON.parse(localStorage.getItem("NusaPulse_user"));
+
+        try {
+          const result = await callAPIGet("submitFileLink", {
+            userId: user.userId,
+            userEmail: user.email,
+            reportType: type,
+            driveLink: link,
+            remarks: remarks,
+          });
+
+          if (result.success) {
+            card.classList.add("submitted");
+            submittedReports[type] = true;
+            statusDiv.innerHTML =
+              '<span class="status-badge status-submitted">✓ Submitted</span>';
+            linkInput.disabled = true;
+            remarksInput.disabled = true;
+
+            showAlert(
+              "success",
+              `${
+                type.charAt(0).toUpperCase() + type.slice(1)
+              } report submitted successfully!`
+            );
+          } else {
+            showAlert(
+              "error",
+              result.message || "Submission failed. Please try again."
+            );
+          }
+        } catch (error) {
+          console.error("Submission error:", error);
+          showAlert("error", "An error occurred. Please try again.");
         }
+      }
 
-        function handleDrop(e) {
-            e.preventDefault();
-            e.currentTarget.classList.remove('dragover');
-            
-            const files = e.dataTransfer.files;
-            if (files.length > 0) {
-                const cardId = e.currentTarget.id;
-                const reportType = cardId.replace('Card', '');
-                const input = document.getElementById(reportType + 'Input');
-                input.files = files;
-                handleFileSelect(reportType, input);
-            }
-        }
+      function showAlert(type, message) {
+        const alertBox = document.getElementById("alertBox");
+        alertBox.className = `alert alert-${type} show`;
+        alertBox.textContent = message;
 
-        function triggerUpload(type) {
-            document.getElementById(type + 'Input').click();
-        }
+        setTimeout(() => {
+          alertBox.classList.remove("show");
+        }, 5000);
+      }
 
-        async function handleFileSelect(type, input) {
-            const file = input.files[0];
-            if (!file) return;
-
-            // Validate file size (max 10MB)
-            if (file.size > 10 * 1024 * 1024) {
-                showAlert('error', 'File size must be less than 10MB');
-                input.value = '';
-                return;
-            }
-
-            // Validate file type
-            const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
-            if (!allowedTypes.includes(file.type)) {
-                showAlert('error', 'Only PDF, JPG, and PNG files are allowed');
-                input.value = '';
-                return;
-            }
-
-            const card = document.getElementById(type + 'Card');
-            const info = document.getElementById(type + 'Info');
-            const progress = document.getElementById(type + 'Progress');
-
-            card.classList.add('uploading');
-            progress.style.display = 'block';
-            const progressFill = progress.querySelector('.progress-fill');
-
-            try {
-                // Convert file to base64
-                const base64Data = await fileToBase64(file);
-                
-                // Get user data
-                const user = JSON.parse(localStorage.getItem('NusaPulse_user'));
-                
-                // Simulate progress
-                let progressValue = 0;
-                const progressInterval = setInterval(() => {
-                    progressValue += Math.random() * 30;
-                    if (progressValue >= 90) {
-                        clearInterval(progressInterval);
-                    }
-                    progressFill.style.width = Math.min(progressValue, 90) + '%';
-                }, 200);
-
-                // Upload to backend
-                const result = await callAPIGet('uploadFile', {
-                    userId: user.userId,
-                    userEmail: user.email,
-                    fileName: file.name,
-                    fileData: base64Data,
-                    reportType: type
-                });
-
-                clearInterval(progressInterval);
-                progressFill.style.width = '100%';
-
-                if (result.success) {
-                    card.classList.remove('uploading');
-                    card.classList.add('uploaded');
-                    uploadedFiles[type] = file;
-                    
-                    info.innerHTML = `
-                        <strong>${file.name}</strong><br>
-                        Size: ${(file.size / 1024 / 1024).toFixed(2)} MB<br>
-                        Uploaded: ${new Date().toLocaleDateString()}
-                    `;
-                    
-                    showAlert('success', `${type.charAt(0).toUpperCase() + type.slice(1)} report uploaded successfully!`);
-                    updateSubmitButton();
-                    
-                    setTimeout(() => {
-                        progress.style.display = 'none';
-                        progressFill.style.width = '0%';
-                    }, 1000);
-                } else {
-                    throw new Error(result.message || 'Upload failed');
-                }
-            } catch (error) {
-                console.error('Upload error:', error);
-                card.classList.remove('uploading');
-                progress.style.display = 'none';
-                showAlert('error', 'Upload failed: ' + error.message);
-                input.value = '';
-            }
-        }
-
-        function updateSubmitButton() {
-            const uploadCount = Object.values(uploadedFiles).filter(file => file !== null).length;
-            const submitButton = document.getElementById('submitButton');
-            
-            if (uploadCount > 0) {
-                submitButton.disabled = false;
-                submitButton.textContent = `${uploadCount} Report${uploadCount > 1 ? 's' : ''} Uploaded - Ready for Review`;
-            } else {
-                submitButton.disabled = true;
-                submitButton.textContent = 'No files uploaded yet';
-            }
-        }
-
-        function submitNotification() {
-            const uploadCount = Object.values(uploadedFiles).filter(file => file !== null).length;
-            
-            if (uploadCount === 0) return;
-
-            showAlert('success', `Successfully submitted ${uploadCount} report${uploadCount > 1 ? 's' : ''} for review! Our medical team will process your data within 2-3 business days. You'll receive an email notification when your verified data is available.`);
-        }
-
-        function showAlert(type, message) {
-            const alertBox = document.getElementById('alertBox');
-            alertBox.className = `alert alert-${type} show`;
-            alertBox.textContent = message;
-            
-            setTimeout(() => {
-                alertBox.classList.remove('show');
-            }, 5000);
-        }
-
-        function logout() {
-            localStorage.removeItem('NusaPulse_token');
-            localStorage.removeItem('NusaPulse_user');
-            window.location.href = 'login.html';
-        }
+      function logout() {
+        localStorage.removeItem("NusaPulse_token");
+        localStorage.removeItem("NusaPulse_user");
+        window.location.href = "login.html";
+      }
     </script>
-</body>
+  </body>
 </html>
