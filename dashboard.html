@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NusaPulse - Metabolic Age Dashboard</title>
+    <script src="config.js"></script>
     <style>
         * {
             margin: 0;
@@ -39,6 +40,14 @@
             font-size: 1.5rem;
             font-weight: bold;
             color: #4facfe;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
         }
 
         .nav-menu {
@@ -792,7 +801,9 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">🏥 NusaPulse</div>
+            <div class="logo">
+                <img src="img/logo.jpg" alt="NusaPulse">
+            </div>
             
             <!-- Desktop Menu -->
             <div class="nav-menu">
@@ -929,7 +940,7 @@
         <div class="metabolic-factors">
             <h3 style="margin-bottom: 25px;">Key Metabolic Age Factors</h3>
             <div class="factors-grid" id="factorsGrid">
-                <!-- Factors will be loaded dynamically -->
+                <!-- Factors will be loaded dynamically from backend -->
             </div>
         </div>
 
@@ -1102,8 +1113,8 @@
             }
         };
 
-        // Sample user data
-        const userData = {
+        // Default user data (will be replaced with data from backend)
+        let userData = {
             user: { firstName: "John", lastName: "Doe" },
             chronologicalAge: 33,
             metabolicAge: 42,
@@ -1136,11 +1147,12 @@
             }
 
             loadUserData();
+            loadHealthDataFromBackend();
             loadMetabolicFactors();
             initializeAgeSlider();
         });
 
-        function loadUserData() {
+        async function loadUserData() {
             const user = JSON.parse(localStorage.getItem('NusaPulse_user')) || userData.user;
             const fullName = `${user.firstName} ${user.lastName}`;
             
@@ -1148,12 +1160,78 @@
             document.getElementById('mobileUserName').textContent = fullName;
             document.getElementById('welcomeName').textContent = user.firstName;
             
-            // Set age values
-            document.getElementById('chronologicalAge').textContent = chronologicalAge;
-            document.getElementById('metabolicAge').textContent = currentMetabolicAge;
+            // Set chronological age
+            if (user.age) {
+                chronologicalAge = user.age;
+                document.getElementById('chronologicalAge').textContent = chronologicalAge;
+            }
+        }
+
+        async function loadHealthDataFromBackend() {
+            try {
+                const user = JSON.parse(localStorage.getItem('NusaPulse_user'));
+                if (!user || !user.userId) return;
+
+                const result = await callAPIGet('getUserHealthData', {
+                    userId: user.userId
+                });
+
+                if (result.success && result.healthData) {
+                    const healthData = result.healthData;
+                    
+                    // Update metabolic age if available
+                    if (healthData.metabolicAge) {
+                        currentMetabolicAge = parseFloat(healthData.metabolicAge);
+                        document.getElementById('metabolicAge').textContent = Math.round(currentMetabolicAge);
+                        updateSliderPosition(currentMetabolicAge);
+                        updateSliderAppearance(currentMetabolicAge);
+                        updateImprovementMessage(currentMetabolicAge);
+                    }
+                    
+                    if (healthData.chronologicalAge) {
+                        chronologicalAge = parseFloat(healthData.chronologicalAge);
+                        document.getElementById('chronologicalAge').textContent = chronologicalAge;
+                    }
+                    
+                    updateAgeDifference();
+                    
+                    // Update factors if detailed metrics available
+                    if (result.detailedMetrics && result.detailedMetrics.length > 0) {
+                        updateFactorsFromMetrics(result.detailedMetrics);
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading health data:', error);
+                // Continue with default data
+            }
+        }
+
+        function updateFactorsFromMetrics(metrics) {
+            // Map detailed metrics to factors display
+            const factorMapping = {
+                'Muscle Mass': 'muscleMass',
+                'Visceral Fat': 'visceralFat',
+                'Insulin Sensitivity': 'insulinSensitivity',
+                'VO2 Max': 'vo2Max',
+                'Inflammation': 'inflammation',
+                'Sleep Quality': 'sleepQuality',
+                'Stress': 'stressCortisol',
+                'Metabolism': 'rmr'
+            };
             
-            // Calculate and display age difference
-            updateAgeDifference();
+            // Update userData.factors with backend data
+            metrics.forEach(metric => {
+                const existingFactor = userData.factors.find(f => 
+                    f.name.toLowerCase().includes(metric.metric.toLowerCase())
+                );
+                
+                if (existingFactor) {
+                    existingFactor.value = metric.value;
+                    existingFactor.status = metric.status;
+                }
+            });
+            
+            loadMetabolicFactors();
         }
 
         function toggleMobileMenu() {
@@ -1162,7 +1240,6 @@
             
             mobileMenu.classList.toggle('active');
             
-            // Change hamburger to X when open
             if (mobileMenu.classList.contains('active')) {
                 menuIcon.textContent = '✕';
             } else {
@@ -1170,7 +1247,6 @@
             }
         }
 
-        // Close mobile menu when clicking outside
         document.addEventListener('click', function(event) {
             const mobileMenu = document.getElementById('mobileMenu');
             const menuBtn = document.querySelector('.mobile-menu-btn');
@@ -1227,17 +1303,14 @@
             const slider = document.getElementById('ageSlider');
             const track = slider.parentElement;
             
-            // Calculate boundaries (age range 20-65)
             const trackRect = track.getBoundingClientRect();
-            sliderMinX = 35; // Padding from left
-            sliderMaxX = trackRect.width - 35; // Padding from right
+            sliderMinX = 35;
+            sliderMaxX = trackRect.width - 35;
             
-            // Set initial position
             updateSliderPosition(currentMetabolicAge);
             updateSliderAppearance(currentMetabolicAge);
             updateImprovementMessage(currentMetabolicAge);
 
-            // Add event listeners
             slider.addEventListener('mousedown', startDragging);
             slider.addEventListener('touchstart', startDragging);
             document.addEventListener('mousemove', drag);
@@ -1245,7 +1318,6 @@
             document.addEventListener('mouseup', stopDragging);
             document.addEventListener('touchend', stopDragging);
 
-            // Prevent default drag behavior
             slider.addEventListener('dragstart', e => e.preventDefault());
         }
 
@@ -1263,13 +1335,10 @@
             const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
             let x = clientX - trackRect.left;
             
-            // Keep within bounds
             x = Math.max(sliderMinX, Math.min(x, sliderMaxX));
             
-            // Convert position to age (20-65 range)
             const age = 20 + ((x - sliderMinX) / (sliderMaxX - sliderMinX)) * 45;
             
-            // Allow full range movement
             updateSliderPosition(age);
             updateSliderAppearance(age);
             updateImprovementMessage(age);
@@ -1282,7 +1351,6 @@
 
         function updateSliderPosition(age) {
             const slider = document.getElementById('ageSlider');
-            // Map age 20-65 to position
             const agePercent = (age - 20) / 45;
             const position = sliderMinX + (agePercent * (sliderMaxX - sliderMinX));
             
@@ -1333,7 +1401,6 @@
             const messageContent = document.getElementById('messageContent');
             const metricsList = document.getElementById('metricsList');
 
-            // Find the appropriate improvement range
             let improvementKey = 60;
             if (targetAge <= 25) improvementKey = 20;
             else if (targetAge <= 35) improvementKey = 30;
@@ -1341,26 +1408,21 @@
             else if (targetAge <= 55) improvementKey = 50;
 
             const improvement = ageImprovements[improvementKey];
+            const actualMetabolicAge = userData.metabolicAge || 42;
 
-            if (Math.abs(targetAge - 42) < 1) {
-                // At current metabolic age
+            if (Math.abs(targetAge - actualMetabolicAge) < 1) {
                 messageTitle.textContent = "Your Current Metabolic Age";
                 messageContent.textContent = `Your metabolic age is ${Math.round(targetAge - chronologicalAge)} years older than your chronological age. Drag the slider left to see what improvements can help reverse this!`;
                 metricsList.innerHTML = '';
             } else {
-                // Showing improvement path
-                const ageReduction = Math.round(42 - targetAge);
+                const ageReduction = Math.round(actualMetabolicAge - targetAge);
                 messageTitle.textContent = `To reach age ${Math.round(targetAge)}: ${improvement.title}`;
                 messageContent.textContent = improvement.message;
                 
-                // Show specific metabolic improvements
                 metricsList.innerHTML = improvement.metrics.map(metric => {
                     const sign = ageReduction >= 0 ? "-" : "+";
                     return `
                         <div class="metric-item ${metric.impact}">
-                            <svg class="metric-icon" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="${metric.icon}"/>
-                            </svg>
                             <div class="metric-text">
                                 <div class="metric-title">${metric.title}</div>
                                 <div class="metric-desc">${metric.desc}</div>
@@ -1414,13 +1476,11 @@
             const message = `${info.name}\n\n${info.description}\n\nIncludes: ${info.includes}\n\nWould you like to learn more about this program?`;
             
             if (confirm(message)) {
-                // Redirect to NusaPulse website with program parameter
                 window.open(`https://nusapulse.my/programs/${program}`, '_blank');
             }
         }
 
         function explorePrograms() {
-            // Show loading state
             const button = event.target;
             const originalText = button.textContent;
             
@@ -1428,7 +1488,6 @@
             button.disabled = true;
 
             setTimeout(() => {
-                // Redirect to NusaPulse main programs page
                 window.open('https://nusapulse.my/health-programs', '_blank');
                 
                 button.textContent = originalText;
@@ -1442,7 +1501,6 @@
             window.location.href = 'login.html';
         }
 
-        // Handle window resize
         window.addEventListener('resize', function() {
             const track = document.getElementById('ageSlider').parentElement;
             const trackRect = track.getBoundingClientRect();

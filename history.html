@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NusaPulse - Health History</title>
+    <script src="config.js"></script>
     <style>
         * {
             margin: 0;
@@ -39,6 +40,14 @@
             font-size: 1.5rem;
             font-weight: bold;
             color: #4facfe;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
         }
 
         .nav-menu {
@@ -509,10 +518,11 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">🏥 NusaPulse</div>
+            <div class="logo">
+                <img src="img/logo.jpg" alt="NusaPulse">
+            </div>
             <div class="nav-menu">
                 <a href="dashboard.html">Dashboard</a>
                 <a href="upload.html">Upload Files</a>
@@ -526,43 +536,39 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
     <div class="main-container">
-        <!-- Page Header -->
         <div class="page-header">
             <h1 class="page-title">Health History & Progress</h1>
             <p class="page-subtitle">Track your health improvements and metabolic age journey</p>
         </div>
 
-        <!-- Summary Cards -->
         <div class="summary-cards">
             <div class="summary-card">
                 <div class="summary-icon">🧬</div>
-                <div class="summary-value" id="currentMetabolicAge">42</div>
+                <div class="summary-value" id="currentMetabolicAge">--</div>
                 <div class="summary-label">Current Metabolic Age</div>
-                <div class="summary-change change-positive" id="metabolicAgeChange">-3 years (6 months)</div>
+                <div class="summary-change change-neutral" id="metabolicAgeChange">Loading...</div>
             </div>
             <div class="summary-card">
                 <div class="summary-icon">📊</div>
-                <div class="summary-value" id="totalReports">8</div>
+                <div class="summary-value" id="totalReports">--</div>
                 <div class="summary-label">Total Reports Processed</div>
-                <div class="summary-change change-neutral">Last: Aug 15, 2024</div>
+                <div class="summary-change change-neutral">Last: --</div>
             </div>
             <div class="summary-card">
                 <div class="summary-icon">🎯</div>
-                <div class="summary-value" id="goalsAchieved">3/5</div>
+                <div class="summary-value" id="goalsAchieved">0/5</div>
                 <div class="summary-label">Health Goals Achieved</div>
-                <div class="summary-change change-positive">+1 this month</div>
+                <div class="summary-change change-neutral">+0 this month</div>
             </div>
             <div class="summary-card">
                 <div class="summary-icon">📈</div>
-                <div class="summary-value" id="improvementScore">78%</div>
+                <div class="summary-value" id="improvementScore">--</div>
                 <div class="summary-label">Overall Improvement</div>
-                <div class="summary-change change-positive">+12% (6 months)</div>
+                <div class="summary-change change-neutral">Loading...</div>
             </div>
         </div>
 
-        <!-- Metabolic Age Chart -->
         <div class="chart-container">
             <div class="chart-header">
                 <h2 class="chart-title">🧬 Metabolic Age Progression</h2>
@@ -574,217 +580,86 @@
                 </div>
             </div>
             <div class="chart-area" id="metabolicAgeChart">
-                <div class="chart-placeholder">Interactive Metabolic Age Chart - Shows progression over time with target line</div>
+                <div class="chart-placeholder">Metabolic age trend data will appear here once you upload health reports</div>
             </div>
         </div>
 
-        <!-- Key Metrics Progress -->
-        <div class="metric-grid">
-            <div class="metric-card">
-                <div class="metric-header">
-                    <span class="metric-name">HbA1c</span>
-                    <span class="metric-trend trend-up">↗ Improving</span>
-                </div>
-                <div class="metric-current">5.8%</div>
-                <div class="metric-change">Down from 6.2% (6 months ago)</div>
-                <div class="mini-chart">
-                    <div class="chart-line" style="height: 60%;"></div>
-                </div>
-            </div>
-
-            <div class="metric-card">
-                <div class="metric-header">
-                    <span class="metric-name">Muscle Mass</span>
-                    <span class="metric-trend trend-up">↗ Improving</span>
-                </div>
-                <div class="metric-current">65.2 kg</div>
-                <div class="metric-change">Up from 62.8 kg (6 months ago)</div>
-                <div class="mini-chart">
-                    <div class="chart-line" style="height: 75%;"></div>
-                </div>
-            </div>
-
-            <div class="metric-card">
-                <div class="metric-header">
-                    <span class="metric-name">Visceral Fat</span>
-                    <span class="metric-trend trend-up">↗ Improving</span>
-                </div>
-                <div class="metric-current">Level 8</div>
-                <div class="metric-change">Down from Level 12 (6 months ago)</div>
-                <div class="mini-chart">
-                    <div class="chart-line" style="height: 45%;"></div>
-                </div>
-            </div>
-
-            <div class="metric-card">
-                <div class="metric-header">
-                    <span class="metric-name">VO2 Max</span>
-                    <span class="metric-trend trend-up">↗ Improving</span>
-                </div>
-                <div class="metric-current">32 ml/kg/min</div>
-                <div class="metric-change">Up from 28 ml/kg/min (6 months ago)</div>
-                <div class="mini-chart">
-                    <div class="chart-line" style="height: 65%;"></div>
-                </div>
-            </div>
-
-            <div class="metric-card">
-                <div class="metric-header">
-                    <span class="metric-name">Total Cholesterol</span>
-                    <span class="metric-trend trend-stable">→ Stable</span>
-                </div>
-                <div class="metric-current">195 mg/dL</div>
-                <div class="metric-change">Similar to 198 mg/dL (3 months ago)</div>
-                <div class="mini-chart">
-                    <div class="chart-line" style="height: 55%;"></div>
-                </div>
-            </div>
-
-            <div class="metric-card">
-                <div class="metric-header">
-                    <span class="metric-name">Vitamin D</span>
-                    <span class="metric-trend trend-down">↘ Needs Attention</span>
-                </div>
-                <div class="metric-current">28 ng/mL</div>
-                <div class="metric-change">Down from 35 ng/mL (3 months ago)</div>
-                <div class="mini-chart">
-                    <div class="chart-line" style="height: 40%;"></div>
-                </div>
-            </div>
+        <div class="metric-grid" id="metricsGrid">
+            <!-- Metrics will be loaded dynamically -->
         </div>
 
-        <!-- Health Timeline -->
         <div class="timeline-container">
             <h2 class="timeline-header">📅 Health Journey Timeline</h2>
-            <div class="timeline">
+            <div class="timeline" id="timelineContainer">
                 <div class="timeline-item">
-                    <div class="timeline-date">August 15, 2024</div>
-                    <div class="timeline-title">Latest Health Screening</div>
+                    <div class="timeline-date" id="signupDate">--</div>
+                    <div class="timeline-title">Account Created</div>
                     <div class="timeline-description">
-                        Comprehensive blood work showing continued improvement in metabolic markers. HbA1c decreased to 5.8% and muscle mass increased significantly.
-                    </div>
-                    <div class="timeline-metrics">
-                        <span class="timeline-metric">HbA1c: 5.8% ↓</span>
-                        <span class="timeline-metric">Muscle Mass: 65.2kg ↑</span>
-                        <span class="timeline-metric">Visceral Fat: Level 8 ↓</span>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-date">May 10, 2024</div>
-                    <div class="timeline-title">Mid-Year Body Composition Scan</div>
-                    <div class="timeline-description">
-                        DEXA scan results showing positive body composition changes. Significant reduction in visceral fat and improvement in muscle mass distribution.
-                    </div>
-                    <div class="timeline-metrics">
-                        <span class="timeline-metric">Body Fat: 18% ↓</span>
-                        <span class="timeline-metric">Bone Density: 1.15 g/cm² ↑</span>
-                        <span class="timeline-metric">Metabolic Age: 40 years ↓</span>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-date">February 15, 2024</div>
-                    <div class="timeline-title">Quarterly Health Check</div>
-                    <div class="timeline-description">
-                        Regular health screening showing steady progress. Blood pressure normalized and cholesterol levels improved with lifestyle modifications.
-                    </div>
-                    <div class="timeline-metrics">
-                        <span class="timeline-metric">BP: 125/82 ↓</span>
-                        <span class="timeline-metric">LDL: 125 mg/dL ↓</span>
-                        <span class="timeline-metric">VO2 Max: 30 ml/kg/min ↑</span>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-date">November 20, 2023</div>
-                    <div class="timeline-title">DNA Analysis Results</div>
-                    <div class="timeline-description">
-                        Comprehensive genetic testing providing insights into metabolism, nutrition, and exercise response. Results used to personalize health optimization plan.
-                    </div>
-                    <div class="timeline-metrics">
-                        <span class="timeline-metric">MTHFR: C/T variant</span>
-                        <span class="timeline-metric">APOE: ε3/ε3</span>
-                        <span class="timeline-metric">FTO: Risk variant</span>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-date">August 10, 2023</div>
-                    <div class="timeline-title">Initial Health Assessment</div>
-                    <div class="timeline-description">
-                        Baseline health screening revealing metabolic age of 45 years. Multiple areas identified for improvement including insulin resistance and body composition.
-                    </div>
-                    <div class="timeline-metrics">
-                        <span class="timeline-metric">Metabolic Age: 45 years</span>
-                        <span class="timeline-metric">HbA1c: 6.2%</span>
-                        <span class="timeline-metric">Muscle Mass: 62.8kg</span>
+                        Welcome to NusaPulse! Upload your health reports to begin your metabolic age journey.
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Health Goals Progress -->
         <div class="goals-container">
             <h2 class="goals-header">🎯 Health Goals Progress</h2>
             
             <div class="goal-item">
                 <div class="goal-header">
                     <span class="goal-title">Reduce Metabolic Age to 35 years</span>
-                    <span class="goal-progress">70% Complete</span>
+                    <span class="goal-progress">0% Complete</span>
                 </div>
                 <div class="progress-bar">
-                    <div class="progress-fill" style="width: 70%;"></div>
+                    <div class="progress-fill" style="width: 0%;"></div>
                 </div>
-                <div class="goal-target">Target: 35 years | Current: 42 years | Started: 45 years</div>
+                <div class="goal-target">Target: 35 years | Current: -- | Started: --</div>
             </div>
 
             <div class="goal-item">
                 <div class="goal-header">
                     <span class="goal-title">Lower HbA1c below 5.7%</span>
-                    <span class="goal-progress">80% Complete</span>
+                    <span class="goal-progress">0% Complete</span>
                 </div>
                 <div class="progress-bar">
-                    <div class="progress-fill" style="width: 80%;"></div>
+                    <div class="progress-fill" style="width: 0%;"></div>
                 </div>
-                <div class="goal-target">Target: <5.7% | Current: 5.8% | Started: 6.2%</div>
+                <div class="goal-target">Target: <5.7% | Current: -- | Started: --</div>
             </div>
 
             <div class="goal-item">
                 <div class="goal-header">
-                    <span class="goal-title">Increase Muscle Mass to 70kg</span>
-                    <span class="goal-progress">60% Complete</span>
+                    <span class="goal-title">Increase Muscle Mass</span>
+                    <span class="goal-progress">0% Complete</span>
                 </div>
                 <div class="progress-bar">
-                    <div class="progress-fill" style="width: 60%;"></div>
+                    <div class="progress-fill" style="width: 0%;"></div>
                 </div>
-                <div class="goal-target">Target: 70kg | Current: 65.2kg | Started: 62.8kg</div>
+                <div class="goal-target">Upload body composition report to set target</div>
             </div>
 
             <div class="goal-item">
                 <div class="goal-header">
-                    <span class="goal-title">Reduce Visceral Fat to Level 6</span>
-                    <span class="goal-progress">67% Complete</span>
+                    <span class="goal-title">Reduce Visceral Fat</span>
+                    <span class="goal-progress">0% Complete</span>
                 </div>
                 <div class="progress-bar">
-                    <div class="progress-fill" style="width: 67%;"></div>
+                    <div class="progress-fill" style="width: 0%;"></div>
                 </div>
-                <div class="goal-target">Target: Level 6 | Current: Level 8 | Started: Level 12</div>
+                <div class="goal-target">Upload body composition report to set target</div>
             </div>
 
             <div class="goal-item">
                 <div class="goal-header">
-                    <span class="goal-title">Improve VO2 Max to 40+ ml/kg/min</span>
-                    <span class="goal-progress">33% Complete</span>
+                    <span class="goal-title">Improve VO2 Max</span>
+                    <span class="goal-progress">0% Complete</span>
                 </div>
                 <div class="progress-bar">
-                    <div class="progress-fill" style="width: 33%;"></div>
+                    <div class="progress-fill" style="width: 0%;"></div>
                 </div>
-                <div class="goal-target">Target: 40+ ml/kg/min | Current: 32 ml/kg/min | Started: 28 ml/kg/min</div>
+                <div class="goal-target">Upload health screening to set target</div>
             </div>
         </div>
 
-        <!-- Export Section -->
         <div class="export-section">
             <h3 style="margin-bottom: 20px; color: #1e293b;">📊 Export Your Health Data</h3>
             <button class="export-btn" onclick="exportPDF()">📄 Download PDF Report</button>
@@ -794,38 +669,7 @@
     </div>
 
     <script>
-        // Sample historical data
-        const historicalData = {
-            metabolicAge: [
-                { date: '2023-08-10', value: 45 },
-                { date: '2023-11-20', value: 44 },
-                { date: '2024-02-15', value: 42 },
-                { date: '2024-05-10', value: 40 },
-                { date: '2024-08-15', value: 42 }
-            ],
-            hba1c: [
-                { date: '2023-08-10', value: 6.2 },
-                { date: '2024-02-15', value: 6.0 },
-                { date: '2024-05-10', value: 5.9 },
-                { date: '2024-08-15', value: 5.8 }
-            ],
-            muscleMass: [
-                { date: '2023-08-10', value: 62.8 },
-                { date: '2024-02-15', value: 63.5 },
-                { date: '2024-05-10', value: 64.2 },
-                { date: '2024-08-15', value: 65.2 }
-            ],
-            visceralFat: [
-                { date: '2023-08-10', value: 12 },
-                { date: '2024-02-15', value: 10 },
-                { date: '2024-05-10', value: 9 },
-                { date: '2024-08-15', value: 8 }
-            ]
-        };
-
-        // Initialize page
         document.addEventListener('DOMContentLoaded', function() {
-            // Check authentication
             const token = localStorage.getItem('NusaPulse_token');
             if (!token) {
                 window.location.href = 'login.html';
@@ -833,8 +677,7 @@
             }
 
             loadUserData();
-            updateSummaryCards();
-            initializeCharts();
+            loadHealthHistory();
         });
 
         function loadUserData() {
@@ -842,94 +685,85 @@
             document.getElementById('userName').textContent = `${user.firstName} ${user.lastName}`;
         }
 
-        function updateSummaryCards() {
-            // Update summary cards with latest data
-            const latestMetabolicAge = historicalData.metabolicAge[historicalData.metabolicAge.length - 1].value;
-            const previousMetabolicAge = historicalData.metabolicAge[0].value;
-            const improvement = previousMetabolicAge - latestMetabolicAge;
+        async function loadHealthHistory() {
+            try {
+                const user = JSON.parse(localStorage.getItem('NusaPulse_user'));
+                if (!user || !user.userId) return;
 
-            document.getElementById('currentMetabolicAge').textContent = latestMetabolicAge;
-            document.getElementById('metabolicAgeChange').textContent = `-${improvement} years (12 months)`;
+                const result = await callAPIGet('getUserHealthData', {
+                    userId: user.userId
+                });
+
+                if (result.success && result.healthData) {
+                    updateDashboardWithData(result.healthData, result.detailedMetrics);
+                }
+            } catch (error) {
+                console.error('Error loading health history:', error);
+            }
         }
 
-        function initializeCharts() {
-            // Initialize metabolic age chart
-            createMetabolicAgeChart();
+        function updateDashboardWithData(healthData, detailedMetrics) {
+            if (healthData.metabolicAge) {
+                document.getElementById('currentMetabolicAge').textContent = Math.round(healthData.metabolicAge);
+            }
+
+            if (detailedMetrics && detailedMetrics.length > 0) {
+                displayMetrics(detailedMetrics);
+            }
         }
 
-        function createMetabolicAgeChart() {
-            const chartContainer = document.getElementById('metabolicAgeChart');
-            
-            // Create a simple SVG chart
-            const chartHTML = `
-                <svg width="100%" height="400" viewBox="0 0 800 400" style="background: #f8fafc; border-radius: 8px;">
-                    <!-- Chart Grid Lines -->
-                    <defs>
-                        <pattern id="grid" width="80" height="40" patternUnits="userSpaceOnUse">
-                            <path d="M 80 0 L 0 0 0 40" fill="none" stroke="#e2e8f0" stroke-width="1"/>
-                        </pattern>
-                    </defs>
-                    <rect width="100%" height="100%" fill="url(#grid)" />
-                    
-                    <!-- Y-Axis Labels -->
-                    <text x="30" y="80" fill="#64748b" font-size="12" text-anchor="middle">50</text>
-                    <text x="30" y="140" fill="#64748b" font-size="12" text-anchor="middle">45</text>
-                    <text x="30" y="200" fill="#64748b" font-size="12" text-anchor="middle">40</text>
-                    <text x="30" y="260" fill="#64748b" font-size="12" text-anchor="middle">35</text>
-                    <text x="30" y="320" fill="#64748b" font-size="12" text-anchor="middle">30</text>
-                    
-                    <!-- X-Axis Labels -->
-                    <text x="100" y="390" fill="#64748b" font-size="12" text-anchor="middle">Aug 2023</text>
-                    <text x="250" y="390" fill="#64748b" font-size="12" text-anchor="middle">Nov 2023</text>
-                    <text x="400" y="390" fill="#64748b" font-size="12" text-anchor="middle">Feb 2024</text>
-                    <text x="550" y="390" fill="#64748b" font-size="12" text-anchor="middle">May 2024</text>
-                    <text x="700" y="390" fill="#64748b" font-size="12" text-anchor="middle">Aug 2024</text>
-                    
-                    <!-- Target Line -->
-                    <line x1="50" y1="260" x2="750" y2="260" stroke="#22c55e" stroke-width="2" stroke-dasharray="5,5" />
-                    <text x="760" y="265" fill="#22c55e" font-size="12">Target: 35</text>
-                    
-                    <!-- Chronological Age Line -->
-                    <line x1="50" y1="320" x2="750" y2="320" stroke="#94a3b8" stroke-width="2" stroke-dasharray="3,3" />
-                    <text x="760" y="325" fill="#94a3b8" font-size="12">Age: 33</text>
-                    
-                    <!-- Metabolic Age Data Line -->
-                    <polyline points="100,80 250,92 400,140 550,200 700,140" 
-                              fill="none" stroke="#4facfe" stroke-width="4" stroke-linecap="round"/>
-                    
-                    <!-- Data Points -->
-                    <circle cx="100" cy="80" r="6" fill="#4facfe" stroke="white" stroke-width="2"/>
-                    <circle cx="250" cy="92" r="6" fill="#4facfe" stroke="white" stroke-width="2"/>
-                    <circle cx="400" cy="140" r="6" fill="#4facfe" stroke="white" stroke-width="2"/>
-                    <circle cx="550" cy="200" r="6" fill="#4facfe" stroke="white" stroke-width="2"/>
-                    <circle cx="700" cy="140" r="6" fill="#4facfe" stroke="white" stroke-width="2"/>
-                    
-                    <!-- Value Labels -->
-                    <text x="100" y="70" fill="#1e293b" font-size="12" font-weight="bold" text-anchor="middle">45</text>
-                    <text x="250" y="82" fill="#1e293b" font-size="12" font-weight="bold" text-anchor="middle">44</text>
-                    <text x="400" y="130" fill="#1e293b" font-size="12" font-weight="bold" text-anchor="middle">42</text>
-                    <text x="550" y="190" fill="#1e293b" font-size="12" font-weight="bold" text-anchor="middle">40</text>
-                    <text x="700" y="130" fill="#1e293b" font-size="12" font-weight="bold" text-anchor="middle">42</text>
-                    
-                    <!-- Chart Title -->
-                    <text x="400" y="30" fill="#1e293b" font-size="16" font-weight="bold" text-anchor="middle">Metabolic Age Progression Over Time</text>
-                </svg>
-            `;
-            
-            chartContainer.innerHTML = chartHTML;
+        function displayMetrics(metrics) {
+            const metricsGrid = document.getElementById('metricsGrid');
+            metricsGrid.innerHTML = '';
+
+            metrics.slice(0, 6).forEach(metric => {
+                const card = document.createElement('div');
+                card.className = 'metric-card';
+                
+                const trendClass = determineTrend(metric.status);
+                
+                card.innerHTML = `
+                    <div class="metric-header">
+                        <span class="metric-name">${metric.metric}</span>
+                        <span class="metric-trend ${trendClass}">${getTrendIcon(metric.status)}</span>
+                    </div>
+                    <div class="metric-current">${metric.value}</div>
+                    <div class="metric-change">Reference: ${metric.range}</div>
+                    <div class="mini-chart">
+                        <div class="chart-line" style="height: ${getChartHeight(metric.status)};"></div>
+                    </div>
+                `;
+                
+                metricsGrid.appendChild(card);
+            });
+        }
+
+        function determineTrend(status) {
+            if (status === 'excellent' || status === 'optimal' || status === 'good') return 'trend-up';
+            if (status === 'poor' || status === 'critical') return 'trend-down';
+            return 'trend-stable';
+        }
+
+        function getTrendIcon(status) {
+            if (status === 'excellent' || status === 'optimal' || status === 'good') return '↗ Improving';
+            if (status === 'poor' || status === 'critical') return '↘ Needs Attention';
+            return '→ Stable';
+        }
+
+        function getChartHeight(status) {
+            if (status === 'excellent' || status === 'optimal') return '75%';
+            if (status === 'good') return '65%';
+            if (status === 'fair') return '50%';
+            if (status === 'poor') return '35%';
+            return '25%';
         }
 
         function filterChart(period) {
-            // Update active button
             document.querySelectorAll('.time-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
-            
-            // Filter chart data based on period
-            console.log(`Filtering chart data for period: ${period}`);
         }
 
         function exportPDF() {
-            // Simulate PDF generation
             const button = event.target;
             const originalText = button.textContent;
             
@@ -937,14 +771,13 @@
             button.disabled = true;
             
             setTimeout(() => {
-                alert('Your comprehensive health report PDF has been generated and will be downloaded shortly. This report includes all your verified health data, trends, and progress towards your goals.');
+                alert('Your comprehensive health report PDF has been generated and will be downloaded shortly.');
                 button.textContent = originalText;
                 button.disabled = false;
             }, 2000);
         }
 
         function exportCSV() {
-            // Simulate CSV export
             const button = event.target;
             const originalText = button.textContent;
             
@@ -952,14 +785,9 @@
             button.disabled = true;
             
             setTimeout(() => {
-                // Create sample CSV data
                 const csvData = [
-                    ['Date', 'Metabolic Age', 'HbA1c', 'Muscle Mass', 'Visceral Fat', 'VO2 Max'],
-                    ['2023-08-10', '45', '6.2', '62.8', '12', '28'],
-                    ['2023-11-20', '44', '6.1', '63.0', '11', '29'],
-                    ['2024-02-15', '42', '6.0', '63.5', '10', '30'],
-                    ['2024-05-10', '40', '5.9', '64.2', '9', '31'],
-                    ['2024-08-15', '42', '5.8', '65.2', '8', '32']
+                    ['Date', 'Metabolic Age', 'Status'],
+                    [new Date().toLocaleDateString(), '--', 'Awaiting data']
                 ];
                 
                 const csvContent = csvData.map(row => row.join(',')).join('\n');
@@ -979,7 +807,6 @@
         }
 
         function shareProgress() {
-            // Simulate sharing functionality
             const button = event.target;
             const originalText = button.textContent;
             
@@ -987,18 +814,17 @@
             button.disabled = true;
             
             setTimeout(() => {
-                const shareUrl = 'https://NusaPulse.app/share/progress/abc123';
+                const shareUrl = 'https://nusapulse.my/share/progress/abc123';
                 
                 if (navigator.share) {
                     navigator.share({
                         title: 'My Health Progress - NusaPulse',
-                        text: 'Check out my health improvement journey! I\'ve reduced my metabolic age by 3 years in 12 months.',
+                        text: 'Check out my health improvement journey!',
                         url: shareUrl
                     });
                 } else {
-                    // Fallback - copy to clipboard
                     navigator.clipboard.writeText(shareUrl).then(() => {
-                        alert('Share link copied to clipboard! You can now share your progress with healthcare providers or family members.');
+                        alert('Share link copied to clipboard!');
                     });
                 }
                 
@@ -1012,98 +838,6 @@
             localStorage.removeItem('NusaPulse_user');
             window.location.href = 'login.html';
         }
-
-        // Add chart interactivity when page loads
-        function initializeChartInteractivity() {
-            const chartContainer = document.getElementById('metabolicAgeChart');
-            
-            chartContainer.addEventListener('mouseover', function(e) {
-                if (e.target.tagName === 'circle') {
-                    e.target.setAttribute('r', '8');
-                    e.target.style.cursor = 'pointer';
-                }
-            });
-            
-            chartContainer.addEventListener('mouseout', function(e) {
-                if (e.target.tagName === 'circle') {
-                    e.target.setAttribute('r', '6');
-                }
-            });
-            
-            // Add click events to chart points
-            chartContainer.addEventListener('click', function(e) {
-                if (e.target.tagName === 'circle') {
-                    const point = e.target;
-                    const cx = point.getAttribute('cx');
-                    let date, value;
-                    
-                    // Map coordinates to data
-                    switch(cx) {
-                        case '100':
-                            date = 'August 10, 2023';
-                            value = '45 years';
-                            break;
-                        case '250':
-                            date = 'November 20, 2023';
-                            value = '44 years';
-                            break;
-                        case '400':
-                            date = 'February 15, 2024';
-                            value = '42 years';
-                            break;
-                        case '550':
-                            date = 'May 10, 2024';
-                            value = '40 years';
-                            break;
-                        case '700':
-                            date = 'August 15, 2024';
-                            value = '42 years';
-                            break;
-                    }
-                    
-                    alert(`Metabolic Age on ${date}: ${value}`);
-                }
-            });
-        }
-
-        // Animate progress bars on page load
-        function animateProgressBars() {
-            const progressBars = document.querySelectorAll('.progress-fill');
-            
-            progressBars.forEach((bar, index) => {
-                setTimeout(() => {
-                    const width = bar.style.width;
-                    bar.style.width = '0%';
-                    setTimeout(() => {
-                        bar.style.width = width;
-                    }, 100);
-                }, index * 200);
-            });
-        }
-
-        // Update mini charts with animation
-        function animateMiniCharts() {
-            const miniCharts = document.querySelectorAll('.chart-line');
-            
-            miniCharts.forEach((chart, index) => {
-                setTimeout(() => {
-                    chart.style.transform = 'scaleY(0)';
-                    chart.style.transformOrigin = 'bottom';
-                    chart.style.transition = 'transform 0.8s ease-out';
-                    
-                    setTimeout(() => {
-                        chart.style.transform = 'scaleY(1)';
-                    }, 100);
-                }, index * 150);
-            });
-        }
-
-        // Initialize all animations and interactions
-        window.addEventListener('load', function() {
-            initializeChartInteractivity();
-            animateProgressBars();
-            setTimeout(animateMiniCharts, 1000);
-        });
     </script>
 </body>
 </html>
