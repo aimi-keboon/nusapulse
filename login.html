@@ -13,262 +13,583 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #2c5aa0 0%, #1e3d72 100%);
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            position: relative;
         }
 
-        .logo-container {
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="medical-pattern" x="0" y="0" width="50" height="50" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="2" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100%" height="100%" fill="url(%23medical-pattern)"/></svg>') repeat;
+            opacity: 0.3;
+        }
+
+        .logo-image {
+            max-width: 120px;
+            height: auto;
+            background: white;
+            padding: 8px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            overflow: hidden;
+            width: 100%;
+            max-width: 900px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 600px;
+            position: relative;
+            z-index: 2;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-top: 80px;
+        }
+
+        .left-panel {
+            background: linear-gradient(135deg, #2c5aa0 0%, #1e3d72 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .left-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('img/medical-login-bg.jpg') center center;
+            background-size: cover;
+            opacity: 0.1;
+            border-radius: 12px 0 0 12px;
+        }
+
+        .panel-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo .pulse-logo {
+            color: #28a745;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            line-height: 1.6;
             margin-bottom: 30px;
+        }
+
+        .medical-features {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .medical-features h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #28a745;
+        }
+
+        .feature-list {
+            list-style: none;
+            text-align: left;
+        }
+
+        .feature-list li {
+            padding: 5px 0;
+            position: relative;
+            padding-left: 20px;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .right-panel {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: #f8f9fa;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .form-container {
+            max-width: 350px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .form-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c5aa0;
+            margin-bottom: 10px;
             text-align: center;
         }
 
-        .logo-container a {
-            display: inline-block;
-            transition: transform 0.3s ease;
-        }
-
-        .logo-container a:hover {
-            transform: scale(1.05);
-        }
-
-        .logo-container img {
-            max-width: 200px;
-            height: auto;
-        }
-
-        .login-container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
-            max-width: 1000px;
-            width: 100%;
-            display: flex;
-        }
-
-        .login-left {
-            flex: 1;
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            padding: 60px;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .login-left h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-
-        .login-left p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            line-height: 1.6;
-        }
-
-        .login-right {
-            flex: 1;
-            padding: 60px;
-        }
-
-        .login-header {
-            margin-bottom: 40px;
-        }
-
-        .login-header h2 {
-            font-size: 2rem;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .login-header p {
+        .form-subtitle {
             color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1rem;
         }
 
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
-        .form-label {
+        .form-group label {
             display: block;
             margin-bottom: 8px;
-            color: #333;
-            font-weight: 500;
+            color: #2c5aa0;
+            font-weight: 600;
+            font-size: 0.95rem;
         }
 
-        .form-input {
+        .form-group input,
+        .form-group select {
             width: 100%;
-            padding: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
             font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #28a745;
+            box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-group.half {
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        .form-input:focus {
-            outline: none;
-            border-color: #4facfe;
-            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
-        }
-
-        .forgot-password {
-            text-align: right;
-            margin-bottom: 25px;
-        }
-
-        .forgot-password a {
-            color: #4facfe;
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-
-        .forgot-password a:hover {
-            text-decoration: underline;
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        .btn-primary {
+            background: #28a745;
             color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.3s ease;
         }
 
-        .login-btn:hover {
+        .btn-primary:hover {
+            background: #218838;
             transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
         }
 
-        .login-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
+        .btn-primary:disabled {
+            opacity: 0.7;
             transform: none;
+            cursor: not-allowed;
+            background: #6c757d;
         }
 
-        .signup-link {
+        .form-links {
             text-align: center;
-            margin-top: 25px;
-            color: #666;
+            margin-top: 20px;
         }
 
-        .signup-link a {
-            color: #4facfe;
+        .form-links a {
+            color: #2c5aa0;
             text-decoration: none;
-            font-weight: 600;
+            margin: 0 10px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            cursor: pointer;
         }
 
-        .signup-link a:hover {
+        .form-links a:hover {
+            color: #28a745;
             text-decoration: underline;
         }
 
-        .alert {
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+        .form-section {
             display: none;
         }
 
-        .alert.show {
+        .form-section.active {
             display: block;
         }
 
-        .alert-error {
-            background: #fee;
-            color: #c33;
-            border: 1px solid #fcc;
+        .alert {
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            border: 1px solid transparent;
         }
 
         .alert-success {
-            background: #efe;
-            color: #3c3;
-            border: 1px solid #cfc;
+            background: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border-color: #f5c6cb;
+        }
+
+        .security-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(40, 167, 69, 0.1);
+            border-radius: 6px;
+            border: 1px solid rgba(40, 167, 69, 0.2);
+        }
+
+        .security-badge::before {
+            content: '🔒';
+            margin-right: 8px;
+        }
+
+        .security-badge span {
+            font-size: 0.85rem;
+            color: #28a745;
+            font-weight: 500;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         @media (max-width: 768px) {
-            .login-container {
-                flex-direction: column;
+            body {
+                padding: 10px;
             }
 
-            .login-left {
-                padding: 40px 30px;
+            .container {
+                grid-template-columns: 1fr;
+                max-width: 100%;
+                margin: 60px 0 0;
+                min-height: auto;
+                max-height: none;
+            }
+            
+            .left-panel {
+                padding: 20px;
+                min-height: 200px;
+                border-radius: 12px 12px 0 0;
             }
 
-            .login-right {
-                padding: 40px 30px;
+            .left-panel::before {
+                border-radius: 12px 12px 0 0;
             }
 
-            .login-left h1 {
-                font-size: 2rem;
+            .logo-image {
+                max-width: 100px;
+            }
+
+            .logo {
+                font-size: 1.8rem;
+                margin-bottom: 10px;
+            }
+
+            .tagline {
+                font-size: 0.95rem;
+                margin-bottom: 15px;
+            }
+
+            .medical-features {
+                padding: 15px;
+            }
+
+            .right-panel {
+                padding: 25px 20px;
+                background: white;
+                max-height: none;
+            }
+
+            .form-container {
+                max-width: 100%;
+            }
+
+            .form-title {
+                font-size: 1.6rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .form-group input,
+            .form-group select {
+                font-size: 16px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="logo-container">
-        <a href="https://nusapulse.my" target="_blank">
-            <img src="img/logo.jpg" alt="NusaPulse Logo">
-        </a>
-    </div>
-    
-    <div class="login-container">
-        <div class="login-left">
-            <h1>Welcome to NusaPulse</h1>
-            <p>Your personal health intelligence platform. Discover your metabolic age and unlock personalized health insights powered by advanced analytics.</p>
-        </div>
-        
-        <div class="login-right">
-            <div class="login-header">
-                <h2>Login</h2>
-                <p>Access your health dashboard</p>
+    <div class="container">
+        <div class="left-panel">
+            <div class="panel-content">
+                <img src="img/logo.jpg" alt="NusaPulse Logo" class="logo-image">
+                <div class="logo">Nusa<span class="pulse-logo">Pulse</span></div>
+                <div class="tagline">
+                    Take control of your health journey with comprehensive screening analysis and personalized medical recommendations.
+                </div>
+                <div class="medical-features">
+                    <h3>Your Health Portal</h3>
+                    <ul class="feature-list">
+                        <li>Access your health reports</li>
+                        <li>Track your progress</li>
+                        <li>Schedule consultations</li>
+                        <li>Get personalized insights</li>
+                        <li>Secure medical data</li>
+                    </ul>
+                </div>
             </div>
+        </div>
 
-            <div id="alertBox" class="alert"></div>
+        <div class="right-panel">
+            <div class="form-container">
+                <!-- Login Form -->
+                <div id="loginForm" class="form-section active">
+                    <h2 class="form-title">Welcome Back</h2>
+                    <p class="form-subtitle">Sign in to access your health dashboard</p>
+                    
+                    <div id="loginAlert"></div>
+                    
+                    <form id="loginFormElement">
+                        <div class="form-group">
+                            <label for="loginEmail">Email Address</label>
+                            <input type="email" id="loginEmail" required placeholder="Enter your email">
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" required placeholder="Enter your password">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Sign In</button>
+                    </form>
+                    
+                    <div class="form-links">
+                        <a onclick="showForm('forgotForm')">Forgot Password?</a>
+                        <a onclick="showForm('signupForm')">Create Account</a>
+                    </div>
 
-            <form id="loginForm">
-                <div class="form-group">
-                    <label class="form-label" for="email">Email Address</label>
-                    <input type="email" id="email" class="form-input" placeholder="your@email.com" required>
+                    <div class="security-badge">
+                        <span>Your data is encrypted and secure</span>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label" for="password">Password</label>
-                    <input type="password" id="password" class="form-input" placeholder="Enter your password" required>
+                <!-- Sign Up Form -->
+                <div id="signupForm" class="form-section">
+                    <h2 class="form-title">Join NusaPulse</h2>
+                    <p class="form-subtitle">Create your health account today</p>
+                    
+                    <div id="signupAlert"></div>
+                    
+                    <form id="signupFormElement">
+                        <div class="form-row">
+                            <div class="form-group half">
+                                <label for="signupFirstName">First Name</label>
+                                <input type="text" id="signupFirstName" required placeholder="First name">
+                            </div>
+                            <div class="form-group half">
+                                <label for="signupLastName">Last Name</label>
+                                <input type="text" id="signupLastName" required placeholder="Last name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupEmail">Email Address</label>
+                            <input type="email" id="signupEmail" required placeholder="Enter your email">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group half">
+                                <label for="signupPassword">Password</label>
+                                <input type="password" id="signupPassword" required minlength="6" placeholder="Password">
+                            </div>
+                            <div class="form-group half">
+                                <label for="signupConfirmPassword">Confirm</label>
+                                <input type="password" id="signupConfirmPassword" required minlength="6" placeholder="Confirm">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group half">
+                                <label for="signupGender">Gender</label>
+                                <select id="signupGender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                    <option value="prefer-not-to-say">Prefer not to say</option>
+                                </select>
+                            </div>
+                            <div class="form-group half">
+                                <label for="signupDateOfBirth">Date of Birth</label>
+                                <input type="date" id="signupDateOfBirth" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Create Account</button>
+                    </form>
+                    
+                    <div class="form-links">
+                        <a onclick="showForm('loginForm')">Already have an account?</a>
+                    </div>
+
+                    <div class="security-badge">
+                        <span>Your data is encrypted and secure</span>
+                    </div>
                 </div>
 
-                <div class="forgot-password">
-                    <a href="#" onclick="showForgotPassword(); return false;">Forgot password?</a>
+                <!-- Forgot Password Form -->
+                <div id="forgotForm" class="form-section">
+                    <h2 class="form-title">Reset Password</h2>
+                    <p class="form-subtitle">Enter your email to receive reset instructions</p>
+                    
+                    <div id="forgotAlert"></div>
+                    
+                    <form id="forgotFormElement">
+                        <div class="form-group">
+                            <label for="forgotEmail">Email Address</label>
+                            <input type="email" id="forgotEmail" required placeholder="Enter your email">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Reset Link</button>
+                    </form>
+                    
+                    <div class="form-links">
+                        <a onclick="showForm('loginForm')">Back to Login</a>
+                    </div>
                 </div>
-
-                <button type="submit" class="login-btn" id="loginBtn">Login</button>
-            </form>
-
-            <div class="signup-link">
-                Don't have an account? <a href="signup.html">Sign up</a>
             </div>
         </div>
     </div>
 
     <script>
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+        function showForm(formId) {
+            document.querySelectorAll('.form-section').forEach(form => {
+                form.classList.remove('active');
+            });
+            document.getElementById(formId).classList.add('active');
+            clearAlerts();
+        }
+
+        function showAlert(containerId, message, type) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+        }
+
+        function clearAlerts() {
+            document.querySelectorAll('[id$="Alert"]').forEach(alert => {
+                alert.innerHTML = '';
+            });
+        }
+
+        function setButtonLoading(button, isLoading, loadingText = 'Processing...') {
+            if (isLoading) {
+                button.innerHTML = `<span class="loading"></span>${loadingText}`;
+                button.disabled = true;
+            } else {
+                button.disabled = false;
+            }
+        }
+
+        function calculateAge(birthDate) {
+            const today = new Date();
+            const birth = new Date(birthDate);
+            let age = today.getFullYear() - birth.getFullYear();
+            const monthDiff = today.getMonth() - birth.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+                age--;
+            }
+            
+            return age;
+        }
+
+        document.getElementById('loginFormElement').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const loginBtn = document.getElementById('loginBtn');
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
             
-            loginBtn.disabled = true;
-            loginBtn.textContent = 'Logging in...';
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            setButtonLoading(submitBtn, true, 'Signing In...');
             
             try {
                 const result = await callAPIGet('login', {
@@ -280,56 +601,111 @@
                     localStorage.setItem('NusaPulse_token', result.token);
                     localStorage.setItem('NusaPulse_user', JSON.stringify(result.user));
                     
-                    showAlert('success', 'Login successful! Redirecting...');
+                    showAlert('loginAlert', 'Login successful! Redirecting to your dashboard...', 'success');
                     
                     setTimeout(() => {
                         window.location.href = 'dashboard.html';
-                    }, 1000);
+                    }, 1500);
                 } else {
-                    showAlert('error', result.message || 'Login failed. Please check your credentials.');
-                    loginBtn.disabled = false;
-                    loginBtn.textContent = 'Login';
+                    showAlert('loginAlert', result.message || 'Login failed. Please check your credentials.', 'error');
                 }
             } catch (error) {
-                console.error('Login error:', error);
-                showAlert('error', 'An error occurred. Please try again.');
-                loginBtn.disabled = false;
-                loginBtn.textContent = 'Login';
+                showAlert('loginAlert', error.message || 'Connection error. Please try again.', 'error');
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
             }
         });
 
-        function showAlert(type, message) {
-            const alertBox = document.getElementById('alertBox');
-            alertBox.className = `alert alert-${type} show`;
-            alertBox.textContent = message;
+        document.getElementById('signupFormElement').addEventListener('submit', async function(e) {
+            e.preventDefault();
             
-            setTimeout(() => {
-                alertBox.classList.remove('show');
-            }, 5000);
-        }
-
-        function showForgotPassword() {
-            const email = document.getElementById('email').value;
+            const firstName = document.getElementById('signupFirstName').value;
+            const lastName = document.getElementById('signupLastName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
+            const gender = document.getElementById('signupGender').value;
+            const dateOfBirth = document.getElementById('signupDateOfBirth').value;
             
-            if (!email) {
-                showAlert('error', 'Please enter your email address first.');
+            if (password !== confirmPassword) {
+                showAlert('signupAlert', 'Passwords do not match.', 'error');
                 return;
             }
             
-            if (confirm(`Send password reset instructions to ${email}?`)) {
-                callAPIGet('forgotPassword', { email: email })
-                    .then(result => {
-                        if (result.success) {
-                            showAlert('success', result.message);
-                        } else {
-                            showAlert('error', result.message);
-                        }
-                    })
-                    .catch(error => {
-                        showAlert('error', 'Failed to send reset email. Please try again.');
-                    });
+            const age = calculateAge(dateOfBirth);
+            if (age < 13) {
+                showAlert('signupAlert', 'You must be at least 13 years old to register.', 'error');
+                return;
             }
-        }
+            
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            setButtonLoading(submitBtn, true, 'Creating Account...');
+            
+            try {
+                const result = await callAPIGet('signup', {
+                    personalInfo: JSON.stringify({
+                        firstName: firstName,
+                        lastName: lastName,
+                        email: email,
+                        password: password
+                    }),
+                    basicInfo: JSON.stringify({
+                        gender: gender,
+                        dateOfBirth: dateOfBirth,
+                        age: age
+                    })
+                });
+                
+                if (result.success) {
+                    showAlert('signupAlert', 'Account created successfully! Please login with your credentials.', 'success');
+                    setTimeout(() => showForm('loginForm'), 2000);
+                } else {
+                    showAlert('signupAlert', result.message || 'Signup failed. Please try again.', 'error');
+                }
+            } catch (error) {
+                showAlert('signupAlert', error.message || 'Connection error. Please try again.', 'error');
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+
+        document.getElementById('forgotFormElement').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('forgotEmail').value;
+            
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            setButtonLoading(submitBtn, true, 'Sending...');
+            
+            try {
+                const result = await callAPIGet('forgotPassword', {
+                    email: email
+                });
+                
+                if (result.success) {
+                    showAlert('forgotAlert', 'Reset instructions sent to your email! Check your inbox.', 'success');
+                } else {
+                    showAlert('forgotAlert', result.message || 'Failed to send reset email.', 'error');
+                }
+            } catch (error) {
+                showAlert('forgotAlert', error.message || 'Connection error. Please try again.', 'error');
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+
+        const maxDate = new Date();
+        maxDate.setFullYear(maxDate.getFullYear() - 13);
+        document.getElementById('signupDateOfBirth').max = maxDate.toISOString().split('T')[0];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('loginEmail').focus();
+        });
     </script>
 </body>
 </html>

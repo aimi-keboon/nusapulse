@@ -15,7 +15,7 @@ function fileToBase64(file) {
 const API_CONFIG = {
   // Replace this with your deployed Google Apps Script web app URL
   API_URL:
-    "https://script.google.com/macros/s/AKfycbxua2J6VHRILUe_n0ixtafukzSUFx_NvO3j26TIkvYQkcXPRBHFZRb_cAP0ic229OVF/exec",
+    "https://script.google.com/macros/s/AKfycbwWongvDr3kKnD8VuWEfgPKT_cnJ7C7OhSA3_A1y5Vpw4HirBAHZ3kkdiTBMlOJh4gN/exec",
 };
 
 // Helper function to make API calls using GET method with JSONP workaround
